@@ -51,34 +51,30 @@ double getDoubleInput ()
     return num + decimal;
 }
 
-void printImageFromArray (int[,] data)
-{
-    int y = 0, x = ;
-    for (; y < data.lenght)
-    {
-
-
-    }
-}
 
 int main ()
 {
     double angle, u, x, t;
     double ux, uy, ty, airTime;
+    double gx, gy, gt;
     double r, h, sy, sx;
     double g = 9.81;
     char playAgain;
 
     do
     {
+        // Clear screen
         system("cls");
-        printImageFromArray();
 
-        printf("==============================\n\n");
-        printf("    Freekick calculator     ");
-        printf("\n\n==============================\n\n");
+        // Introduce
+        printf("******************************");
+        printf("\n*                            *");
+        printf("\n*   Freekick calculator      *");
+        printf("\n*   v.1 by Nitipoom Unrrom   *");
+        printf("\n*                            *");
+        printf("\n******************************\n\n");
 
-
+        // Enter input
         printf("Velocity (m/s): ");
         u = getDoubleInput();
         printf("Angle (degree): ");
@@ -86,41 +82,39 @@ int main ()
         printf("Distance (m): ");
         x = getDoubleInput();
 
+        // Calculation
         r = angle * M_PI / 180.0;
-
         uy = u * sin(r);
         ux = u * cos(r);
         ty = uy / g;
         airTime = 2 * (ty);
         sy = pow(uy, 2)/( 2 * g);
         sx = ux * airTime;
+        gt = x/ux; // Time at goal line
+        gy = uy * gt + 0.5 * (-g) * pow(gt, 2); // Height at goal line
 
-        printf("====== RESULT ======");
-        printf("\nHeightest: %gm", sy);
-        printf("\nFar distance: %gm", sx);
-        printf("\nTime: %gs", airTime);
-
-
-        double gx, gy, gt;
-        gt = x/ux;
-        gy = uy * gt + 0.5 * (-g) * pow(gt, 2);
+        // Print result
+        printf("\n=========== RESULT ============");
+        printf("\n  Highest: %gm", sy);
+        printf("\n  Longest distance: %gm", sx);
+        printf("\n  Air Time: %gs", airTime);
 
         if (gy > 0 && gt > 0)
-            printf("\nHeight at goal line %gm in %gs", gy, gt);
-        else printf("\nBall fall to the ground before reach goal");
+            printf("\n  Height at goal line %gm in %gs", gy, gt);
+        else printf("\n  *  Ball fall to the ground before reach goal");
 
         if (gt <= 0.5 && gy < 2.44 && gy > 0)
         {
-            printf("\n GOAL ! ");
+            printf("\n  >>>>>> GOAL ! ");
         } else {
             if (gy < 2.44 && gy > 0)
-                printf("\nGoal keeper get the ball");
+                printf("\n  *  Goal keeper get the ball");
             else if (gy >= 2.44)
-                printf("\nBall over the goal");
-            printf("\n NOT GOAL");
+                printf("\n  *  Ball over the goal");
+            printf("\n  >>>>>> NOT GOAL");
         }
         rewind(stdin);
-        printf("\nDo you want to play again ? [Y/n]: ");
+        printf("\n\nDo you want to play again ? [Y/n]: ");
         scanf("%c", &playAgain);
         while(playAgain != 'y' && playAgain != 'Y' && playAgain != 'n' && playAgain != 'N')
         {
