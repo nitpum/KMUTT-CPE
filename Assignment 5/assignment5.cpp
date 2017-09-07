@@ -4,7 +4,7 @@
 
 double getDoubleInput();
 int getIntInput();
-int getint(int minInt, int maxInt);
+int getIntInput(int minInt, int maxInt);
 int menu();
 int factorial(int fact);
 int fibo(int order);
@@ -31,7 +31,7 @@ int main ()
         {
             printf("Fibonaci calculator\n");
             printf("Enter fibonaci: ");
-            int fiboOrder = getint(0, 100);
+            int fiboOrder = getIntInput(0, 100);
             printf("Result: %i", fibo(fiboOrder));
         } else if (select == 3)
         {
@@ -84,6 +84,24 @@ int main ()
     } while(select != 0);
 }
 
+int menu ()
+{
+    printf("**************************************************\n");
+    printf("*                      Menu                      *\n");
+    printf("**************************************************\n");
+    printf("*            [1] Factorial function              *\n");
+    printf("*            [2] Fibonacci function              *\n");
+    printf("*            [3] nCr function                    *\n");
+    printf("*            [4] nPr function                    *\n");
+    printf("*            [5] GCD function                    *\n");
+    printf("*                                                *\n");
+    printf("*            [0] Exit                            *\n");
+    printf("**************************************************\n");
+    printf("Select: ");
+
+    return getIntInput(0, 5);
+}
+
 double getDoubleInput ()
 {
     int endCheck, invalid, decimalIndex;
@@ -120,7 +138,7 @@ double getDoubleInput ()
         }
 
         if (invalid == 1)
-            printf("\n[ERROR] Invalid input ! Please enter again: ");
+            printf("[ERROR] Invalid input ! Please enter again: ");
 
         rewind(stdin);
     } while(invalid == 1);
@@ -152,7 +170,7 @@ int getIntInput ()
                 invalid = 1;
         }
         if (invalid == 1)
-            printf("\n[ERROR] Invalid input ! Please enter again: ");
+            printf("[ERROR] Invalid input ! Please enter again: ");
 
         rewind(stdin);
 
@@ -160,34 +178,17 @@ int getIntInput ()
     return num;
 }
 
-int menu ()
-{
-    printf("*************************************************\n");
-    printf("*                      Menu                     *\n");
-    printf("*************************************************\n");
-    printf("*            [1] Factorial function             *\n");
-    printf("*            [2] Fibonacci function             *\n");
-    printf("*            [3] nCr function                   *\n");
-    printf("*            [4] nPr function                   *\n");
-    printf("*            [5] GCD function                   *\n");
-    printf("*                                               *\n");
-    printf("*            [0] Exit                           *\n");
-    printf("*************************************************\n");
-    printf("Select: ");
 
-    return getint(0, 5);
-}
 
-int getint (int minInt, int maxInt)
+int getIntInput (int minInt, int maxInt)
 {
 
     int input = getIntInput();
     while(input < minInt || input > maxInt)
     {
-        printf("\n[ERROR] Please enter number between %i - %i: ", minInt, maxInt);
+        printf("[ERROR] Please enter number between %i - %i: ", minInt, maxInt);
         input = getIntInput();
     }
-
     return input;
 }
 
