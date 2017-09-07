@@ -12,7 +12,6 @@ int nCr(int n, int r);
 int nPr(int n, int r);
 int GCD(int n, int r);
 void printHeader(char text[]);
-void printRepeat(char text, int amount);
 
 int main ()
 {
@@ -150,14 +149,6 @@ void printHeader(char text[])
         }
     }
     printf("**************************************************\n");
-}
-
-void printRepeat(char text, int amount)
-{
-    for (int i = 0; i < amount;i++)
-    {
-        printf("%c", text);
-    }
 }
 
 int getIntInput ()
