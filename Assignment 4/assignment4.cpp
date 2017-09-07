@@ -75,11 +75,11 @@ int main ()
         printf("\n******************************\n\n");
 
         // Enter input
-        printf("Velocity (m/s): ");
+        printf("Enter Velocity (m/s): ");
         u = getDoubleInput();
-        printf("Angle (degree): ");
+        printf("Enter Angle (degree): ");
         angle = getDoubleInput();
-        printf("Distance (m): ");
+        printf("Enter Distance (m): ");
         x = getDoubleInput();
 
         // Calculation
