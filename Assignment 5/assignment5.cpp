@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
+#include <string.h>
 
-double getDoubleInput();
 int getIntInput();
 int getIntInput(int minInt, int maxInt);
 int menu();
@@ -11,6 +11,8 @@ int fibo(int order);
 int nCr(int n, int r);
 int nPr(int n, int r);
 int GCD(int n, int r);
+void printHeader(char text[]);
+void printRepeat(char text, int amount);
 
 int main ()
 {
@@ -24,22 +26,23 @@ int main ()
             system("cls");
         if (select == 1)
         {
+            printHeader("\nFactorial calculator\n");
             printf("Enter factorial: ");
             int fact = getIntInput();
             printf("Result: %i", factorial(fact));
         } else if (select == 2)
         {
-            printf("Fibonaci calculator\n");
-            printf("Enter fibonaci: ");
+            printHeader("\nFibonacci calculator\n");
+            printf("Enter fibonacci: ");
             int fiboOrder = getIntInput(0, 100);
             printf("Result: %i", fibo(fiboOrder));
         } else if (select == 3)
         {
-            printf("nCr calculator");
+            printHeader("\nnCr calculator\n");
             int n, r;
             do
             {
-                printf("\nEnter n: ");
+                printf("Enter n: ");
                 n = getIntInput();
                 printf("Enter r: ");
                 r = getIntInput();
@@ -49,11 +52,11 @@ int main ()
             printf("Result: %i", nCr(n, r));
         }  else if (select == 4)
         {
-            printf("nPr calculator");
+            printHeader("\nnPr calculator\n");
             int n, r;
             do
             {
-                printf("\nEnter n: ");
+                printf("Enter n: ");
                 n = getIntInput();
                 printf("Enter r: ");
                 r = getIntInput();
@@ -63,12 +66,12 @@ int main ()
             printf("Result: %i", nPr(n, r));
         } else if (select == 5)
         {
-            printf("GCD calculator");
+            printHeader("\nGCD calculators\n");
             int n, r;
-            printf("\nEnter n: ");
-            n = getIntInput();
+            printf("Enter n: ");
+            n = getIntInput(1,1000);
             printf("Enter r: ");
-            r = getIntInput();
+            r = getIntInput(1,1000);
             printf("Result: %i", GCD(n, r));
         }
 
@@ -77,7 +80,7 @@ int main ()
             char input;
             do
             {
-                printf("\nPress enter to back to menu.");
+                printf("\n\nPress [ENTER] to back to menu.");
                 input = getchar();
             } while(input != '\n');
         }
@@ -86,9 +89,7 @@ int main ()
 
 int menu ()
 {
-    printf("**************************************************\n");
-    printf("*                      Menu                      *\n");
-    printf("**************************************************\n");
+    printHeader("\nCalculator\n Program by Nitipoom Unrrom\n v1.0\n");
     printf("*            [1] Factorial function              *\n");
     printf("*            [2] Fibonacci function              *\n");
     printf("*            [3] nCr function                    *\n");
@@ -102,47 +103,61 @@ int menu ()
     return getIntInput(0, 5);
 }
 
-double getDoubleInput ()
+void printHeader(char text[])
 {
-    int endCheck, invalid, decimalIndex;
-    char input;
-    double num;
-    do
-    {
-        rewind(stdin);
+    int starCount = 50; // star
+    int amount = strlen(text),
+        lineAmount = 1;
+    printf("**************************************************\n");
 
-        endCheck = 0;
-        invalid = 0;
-        decimalIndex = 0;
-        num = 0.0;
-        int added = 0;
-        while (endCheck == 0 && invalid == 0)
+    // Get line amount
+    for (int i = 0; i < amount;i++)
+    {
+        if (text[i] == '\n')
+            lineAmount += 1;
+    }
+    // Start line
+    for (int line = 1; line <= lineAmount;line++)
+    {
+        int currentLine = 1, lineTextAmount = 0, fistTextIndex = 0;
+        for (int i = 0; i < amount && currentLine <= line;i++)
         {
-            input = getchar();
-            if (input >= '0' && input <= '9')
+            if (text[i] == '\n')
+                currentLine++;
+            else if (text[i] != '\n' && currentLine == line)
             {
-                added = 1;
-                if (decimalIndex > 0)
-                {
-                    num = num + ((double)input - '0') / pow(10, decimalIndex);
-                    decimalIndex++;
-                }
-                else num = num * 10 + (input - '0'); // Regular number
+                if (lineTextAmount == 0)
+                    fistTextIndex = i;
+                if (lineTextAmount <= 47)
+                    lineTextAmount++;
             }
-            else if (input == '.')
-                decimalIndex = 1;
-            else if (input == '\n' && added == 1)
-                endCheck = 1;
-            else
-                invalid = 1;
         }
 
-        if (invalid == 1)
-            printf("[ERROR] Invalid input ! Please enter again: ");
+        int startAt = 24 - lineTextAmount/2;
+        int textIndex = 0 + fistTextIndex;
+        for (int i = 1; i <= 50; i++)
+        {
+            if (i == 1 || i == 49)
+                printf("*");
+            if (i==50)
+                printf("\n");
+            else if (i < startAt || i > (startAt - 1) + lineTextAmount)
+                printf(" ");
+            else if (text[textIndex] == '\n') {
+                printf(" ");
+            }
+            else printf("%c", text[textIndex++]);
+        }
+    }
+    printf("**************************************************\n");
+}
 
-        rewind(stdin);
-    } while(invalid == 1);
-    return num;
+void printRepeat(char text, int amount)
+{
+    for (int i = 0; i < amount;i++)
+    {
+        printf("%c", text);
+    }
 }
 
 int getIntInput ()
