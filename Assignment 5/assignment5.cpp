@@ -218,7 +218,7 @@ int fibo (int order)
 
 int nCr(int n, int r)
 {
-    return factorial(n) / (factorial(r) * (factorial(n - r)));
+    return factorial(n) / (factorial(r) * factorial(n - r));
 }
 
 int nPr(int n, int r)
