@@ -5,16 +5,17 @@
 
 int menu();
 void printHeader(char text[]);
-int getIntInput(int minI, int maxI);
+int getint(int minI, int maxI);
 void test1(int n);
 void test2(int n);
 void test3(int n);
-void test4(int minNum, int maxNum);
+void test4(int a, int b, int c);
 void test5(int n);
 void printHeader();
 
 int main ()
 {
+
     int select;
     do
     {
@@ -29,7 +30,7 @@ int main ()
         else if (select == 3)
             test3(5000);
         else if (select == 4)
-            test4(100, 200);
+            test4(100, 200, 9);
         else if (select == 5)
             test5(100);
 
@@ -43,32 +44,33 @@ int main ()
             } while(input != '\n');
         }
     } while(select != 0);
-
     return 0;
 }
 
 int menu ()
 {
     printHeader("\nAssignment 6\n Program by Nitipoom Unrrom\n v1.0\n");
-    printf("*            [1] 1                               *\n");
-    printf("*            [2] 2                               *\n");
-    printf("*            [3] 3                               *\n");
-    printf("*            [4] 4                               *\n");
-    printf("*            [5] 5                               *\n");
+    printf("*            [1] Test 1                          *\n");
+    printf("*            [2] Test 2                          *\n");
+    printf("*            [3] Test 3                          *\n");
+    printf("*            [4] Test 4                          *\n");
+    printf("*            [5] Test 5                          *\n");
     printf("*                                                *\n");
     printf("*            [0] Exit                            *\n");
     printf("**************************************************\n");
     printf("Select: ");
 
-    return getIntInput(0, 5);
+    return getint(0, 5);
 }
 
-void printHeader(char text[])
+void printHeader(char text[], int length)
 {
-    int starCount = 50; // star
+    int starCount = length; // star
     int amount = strlen(text),
         lineAmount = 1;
-    printf("**************************************************\n");
+    for (int i = 1; i <= length;i++)
+        printf("*");
+    printf("\n");
 
     // Get line amount
     for (int i = 0; i < amount;i++)
@@ -88,18 +90,18 @@ void printHeader(char text[])
             {
                 if (lineTextAmount == 0)
                     fistTextIndex = i;
-                if (lineTextAmount <= 47)
+                if (lineTextAmount <= length - 3)
                     lineTextAmount++;
             }
         }
 
-        int startAt = 24 - lineTextAmount/2;
+        int startAt = (length/2) - lineTextAmount/2;
         int textIndex = 0 + fistTextIndex;
-        for (int i = 1; i <= 50; i++)
+        for (int i = 1; i <= length; i++)
         {
-            if (i == 1 || i == 49)
+            if (i == 1 || i == length - 1)
                 printf("*");
-            if (i==50)
+            if (i==length)
                 printf("\n");
             else if (i < startAt || i > (startAt - 1) + lineTextAmount)
                 printf(" ");
@@ -109,10 +111,17 @@ void printHeader(char text[])
             else printf("%c", text[textIndex++]);
         }
     }
-    printf("**************************************************\n");
+    for (int i = 1; i <= length;i++)
+        printf("*");
+    printf("\n");
 }
 
-int getIntInput ()
+void printHeader(char text[])
+{
+    printHeader(text, 50);
+}
+
+int getint ()
 {
     int invalid, num, added, endCheck;
     char input;
@@ -124,14 +133,13 @@ int getIntInput ()
         endCheck = 0;
         while (endCheck == 0 && invalid == 0)
         {
-
             input = getchar();
             if (input >= '0' && input <= '9')
             {
                 num = num * 10 + (input - '0');
-                added = 1;
+                added++;
             }
-            else if (input == '\n' && added == 1)
+            else if (input == '\n' && added > 0)
                 endCheck = 1;
             else
                 invalid = 1;
@@ -145,24 +153,21 @@ int getIntInput ()
     return num;
 }
 
-
-
-int getIntInput (int minInt, int maxInt)
+int getint (int minInt, int maxInt)
 {
-
-    int input = getIntInput();
+    int input = getint();
     while(input < minInt || input > maxInt)
     {
         printf("[ERROR] Please enter number between %i - %i: ", minInt, maxInt);
-        input = getIntInput();
+        input = getint();
     }
     return input;
 }
 
-int factorial (int fac)
+int factorial (int n)
 {
     int result = 1;
-    for (int i = fac; i > 0;i--)
+    for (int i = n; i > 0;i--)
     {
         result = result * i;
     }
@@ -192,86 +197,16 @@ int quickSum (int start, int n, int d)
 double quickSum(int start, int n, double d)
 {
     double result = 0;
-    for (int i = 1; i <= n; i++)
+    for (int i = start; i <= n; i++)
     {
         result += i * d;
     }
     return result;
 }
 
-int countDigit(int digit)
-{
-    int result = 0;
-    if (digit == 0)
-        return 1;
-    while (digit > 0)
-    {
-        digit /= 10;
-        result++;
-    }
-    return result;
-}
-
-void printRow(int i, int j, int k, int spaceI, int spaceJ, int spaceK)
-{
-    int iLenght = countDigit(i);
-    int jLenght = countDigit(j);
-    int kLenght = countDigit(k);
-    printf("* ");
-    for (int s = 1; s <= spaceI - iLenght;s++)
-        printf(" ");
-    printf("%d * ", i);
-    // J
-    for (int s = 1; s<= spaceJ - jLenght;s++)
-        printf(" ");
-    printf("%d * ", j);
-    // K
-    for (int s = 1; s<= spaceK - kLenght;s++)
-        printf(" ");
-    printf("%d *\n", k);
-}
-
-void printRow(int i, double j, double k, int spaceI, int spaceJ, int spaceK)
-{
-    int iLenght = countDigit(i);
-    int jLenght = countDigit(j);
-    int kLenght = countDigit(k);
-    printf("* ");
-    for (int s = 1; s <= spaceI - iLenght;s++)
-        printf(" ");
-    printf("%d * ", i);
-    // J
-    for (int s = 1; s<= spaceJ - jLenght;s++)
-        printf(" ");
-    printf("%.6f * ", j);
-    // K
-    for (int s = 1; s<= spaceK - kLenght;s++)
-        printf(" ");
-    printf("%.6f *\n", k);
-}
-
-void printRow(int i, int j, int spaceI, int spaceJ)
-{
-    int iLenght = countDigit(i);
-    int jLenght = countDigit(j);
-    printf("* ");
-    for (int s = 1; s <= spaceI - iLenght;s++)
-        printf(" ");
-    printf("%d * ", i);
-    // J
-    for (int s = 1; s<= spaceJ - jLenght;s++)
-        printf(" ");
-    printf("%d *\n", j);
-}
-
-void printRow(int i, int j, int k)
-{
-    printRow(i, j, k, 2, 4, 4);
-}
-
 void test1 (int n)
 {
-    printf("******************************\n");
+    printHeader("Test1\n", 30);
     printf("*  i *    fi     *    sum    *\n");
     printf("******************************\n");
     double sum  = 0;
@@ -279,7 +214,7 @@ void test1 (int n)
     {
         double fi = quickSum(1, i, 2.0) / factorial(i);
         sum += fi;
-        printRow(i,  fi, sum, 2, 2, 2);
+        printf("* %2d * %9lf * %9lf *\n", i, fi, sum);
     }
     printf("******************************\n");
     printf("ans = %f \n", sum);
@@ -287,9 +222,10 @@ void test1 (int n)
 
 void test2 (int n)
 {
-    printf("************************\n");
+    printHeader("\nTest 2\n", 24);
     printf("*count*  i   *    fi   *\n");
     printf("************************\n");
+
     int i = 1;
     int add = 0;
     while (add < n)
@@ -297,7 +233,7 @@ void test2 (int n)
         int fi = fibo(i);
         if (fi % 2 == 0)
         {
-            printRow(++add, i, fi, 3, 4, 7);
+            printf("* %3d * %4d * %7d *\n", ++add, i, fi);
         }
         i++;
     }
@@ -306,7 +242,7 @@ void test2 (int n)
 
 void test3 (int a)
 {
-    printf("*********************\n");
+    printHeader("\nTest 3\n", 21);
     printf("* no *  fi  *  sum  *\n");
     printf("*********************\n");
     int sum = 0;
@@ -315,38 +251,37 @@ void test3 (int a)
     {
         int fi  = (1 + ((i - 1) * 2)) * (40 - (2 * (i - 1)));
         sum += fi;
-        printRow( i, fi, sum, 2, 4, 5);
+        printf("* %2d * %4d * %5d *\n", i, fi, sum);
         i++;
     }
     printf("*********************\n");
     printf("n = %d, ans = %d\n", --i, sum);
 }
 
-void test4 (int minNum, int maxNum)
+void test4 (int a, int b, int c)
 {
-    printf("********************\n");
+    printHeader("\nTest 4\n", 21);
     printf("* no *   i  *  sum *\n");
     printf("********************\n");
     int n = 1, sum = 0;
-    for (int i = minNum; i<=maxNum; i++)
+    for (int i = a; i<=b; i++)
     {
-        if (i%9==0)
+        if (i%c==0)
         {
             sum += i;
-            printRow( n++, i, sum);
-            //printRow(n++, i, sum);
+            printf("* %2d * %4d * %4d *\n", n++, i, sum);
         }
     }
     printf("********************\n");
-    printf("count = %d, ans = %d\n", n, sum);
+    printf("count = %d, ans = %d\n", (n-1), sum);
 }
 
 void test5 (int n)
 {
-    printf("*************\n");
+    printHeader("\nTest 5\n", 13);
     printf("* no * term *\n");
     printf("*************\n");
-    //printf("%d", sum(2, 4, 2));
+
     int a,b, order = 1;
     for (int i = 0; i < n; i++)
     {
@@ -356,7 +291,7 @@ void test5 (int n)
             b = 1 + (j * 5);
             if (a == b)
             {
-                printRow(order, a, 2, 4);
+                printf("* %2d * %4d *\n", order, a);
                 j = n;
                 order++;
             }
