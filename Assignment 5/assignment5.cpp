@@ -68,9 +68,9 @@ int main ()
             printHeader("\nGCD calculators\n");
             int n, r;
             printf("Enter n: ");
-            n = getIntInput(1,1000);
+            n = getIntInput(1,100000);
             printf("Enter r: ");
-            r = getIntInput(1,1000);
+            r = getIntInput(1,100000);
             printf("Result: %i", GCD(n, r));
         }
 
