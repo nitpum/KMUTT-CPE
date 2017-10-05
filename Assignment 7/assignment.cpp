@@ -35,9 +35,7 @@ void calculator ()
 {
     int a, b, c, times1, times2;
     double x1, x2;
-    printf("====================================\n");
     printf("\nCalculator (ax^2 + bx + c)/ 2ax+b \n");
-    printf("====================================\n");
     printf("Enter a: "); a = getdouble();
     printf("Enter b: "); b = getdouble();
     printf("Enter c: "); c = getdouble();
