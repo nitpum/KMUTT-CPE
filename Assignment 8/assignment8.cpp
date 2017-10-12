@@ -25,6 +25,15 @@ int main ()
     do
     {
         system("cls");
+        printHeader("\nArray Statistic\n Program by Nitipoom Unrrom\n v1.0\n");
+        printf("*            [1] Add data                        *\n");
+        printf("*            [2] Remove data                     *\n");
+        printf("*            [3] Statistic                       *\n");
+        printf("*                                                *\n");
+        printf("*            [0] Exit                            *\n");
+        printf("**************************************************\n");
+        ShowData(data, &count);
+        printf("\nSelect: ");
         select = menu();
 
         if (select == 1)
@@ -63,30 +72,40 @@ int main ()
 
 int menu ()
 {
-    printHeader("\nArray Statistic\n Program by Nitipoom Unrrom\n v1.0\n");
-    printf("*            [1] Add data                        *\n");
-    printf("*            [2] Remove data                     *\n");
-    printf("*            [3] Statistic                       *\n");
-    printf("*            [4] Show array data                 *\n");
-    printf("*                                                *\n");
-    printf("*            [0] Exit                            *\n");
-    printf("**************************************************\n");
-    printf("Select: ");
-
     return get_input(0, 5);
 }
 
-double get_double (double min, double max, double *x)
+int YesOrNo ()
 {
-    while(scanf("%lf", x) >= 1 && *x >= min && *x <= max )
+    char c = getchar();
+    while (c != 'n' && c != 'N' && c != 'Y' && c != 'y')
     {
-        return 1;
+        printf("Please enter [Y/n] : \n");
+        c = getchar();
     }
+    if (c == 'Y' || c == 'y')
+        return 1;
+    else return 0;
+}
+
+double get_double (double min, double max, double data[], int *count)
+{
+    int end = 0;
+    double x;
+    char c;
+    while(*count < 20 && end == 0 && scanf("%lf%c", &x, &c) == 2)
+    {
+        data[*count] = x;
+        *count = *count + 1;
+        if (c == '\n') end = 1;
+    }
+    rewind(stdin);
     return 0;
 }
 
 void print_data (double *data, int *count)
 {
+
     //printHeader("Array Data");
     printf("Array {");
     for (int i = 0; i <= (*count - 1); i++)
@@ -101,39 +120,34 @@ void print_data (double *data, int *count)
 
 void ShowData (double *data, int *count)
 {
-    printHeader("Array Data");
     if (*count > 0) {
-        printf("*     Index    *               Value             *\n");
-        printf("**************************************************\n");
+        printf("\n");
         for (int i = 0; i <= (*count - 1); i++)
         {
-
-            //printf(" %g", data[i]);
-            //printf("*            [1] Add data                        *\n");
-            printf("*      %2d      *                     %6g      *\n", i, data[i]);
+            printf("   data[%2d] :  %6g      \n", i, data[i]);
         }
-        printf("**************************************************\n");
-        printf("Count: %d", *count);
+        printf("\n                Count: %d\n", *count);
+        printf("\n**************************************************\n");
     } else {
-        printf("Currently no data.");
+        printf("\nCurrently no data.\n");
     }
 }
-
 
 void add_data (double *data, int *count)
 {
     system("cls");
-    double x = -1;
     printHeader("Add data");
     printf("Enter data: ");
-    while(get_double(0, 100, &x) == 1 && x > -1 && *count < maxCount)
+
+    double x[maxCount];
+    int xCount = 0;
+    get_double(0, 100, x, &xCount);
+    for (int i = 0; i < xCount;i++)
     {
-        //printf("Add %g to Data[%d]\n", x, *count);
-        data[*count] = x;
+        data[*count] = x[i];
         *count += 1;
-        print_data(data, count);
     }
-    print_data(data, count);
+    ShowData(data, count);
     if (*count == maxCount)
         printf("Array is max\n");
 }
@@ -145,10 +159,35 @@ void remove_data (double *data, int *count)
     if (*count > 0)
     {
 
-        double x = -1;
+        double x[maxCount];
+        int xCount = 0;
         printf("Enter data: ");
-        while(get_double(0, 100, &x) == 1 && x > -1)
+        get_double(0, 100, x, &xCount);
+        printf("Data that you want to delete\n ");
+        for (int i = 0; i < *count;i++)
         {
+            for (int j = 0; j < xCount;j++) {
+                if (data[i] == x[j])
+                    printf("  data[%d] :  %6g\n", i, data[i]);
+            }
+        }
+        printf("Confirm delete data [Y/n]: ");
+        if (YesOrNo() == 1)
+        {
+            for (int j = 0; j < xCount;j++) {
+                for (int i = (*count-1); i >= 0;i--)
+                {
+                    if (data[i] == x[j])
+                    {
+                        for (int k = i; i < (*count - 1);k++)
+                        {
+                            data[k] = data[k+1];
+                        }
+                        *count = *count-1;
+                    }
+                }
+            }
+            /*
             for (int i = (*count - 1); i >= 0; i--)
             {
                 int value = x;
@@ -162,9 +201,9 @@ void remove_data (double *data, int *count)
                     }
                     *count -= 1;
                 }
-            }
-            print_data(data, count);
+            }*/
         }
+
         print_data(data, count);
     } else {
         printf("Currently no data.\n");
