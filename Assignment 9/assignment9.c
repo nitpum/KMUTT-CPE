@@ -93,7 +93,7 @@ int main ()
     {
         char temp[100], data[100][40];
         int errorCount = 0, fnCount = 0, opCount = 0, idCount =0, numCount = 0;
-
+        printf("\n*************************************\n");
         printf("Input: %s\n", input);
         strcpy(temp, input); // Copy input to temp for operation
         ToLower(temp); // Set to lower
@@ -102,21 +102,22 @@ int main ()
         printf("Add space: %s\n", temp);
         SpaceSeparate(temp, data);
         int i;
+        printf("\n=== Analyse === \n");
         for (i=0; i < sizeof(data) && strcmp(data[i],"")!=0;i++) {
             if (IsFunction(data[i])) {
-                printf("%s : FUNCTION\n", data[i]);
+                printf(" %s : FUNCTION\n", data[i]);
                 fnCount++;
             }
             else if (IsNumber(data[i])) {
-                printf("%s : NUMBER\n", data[i]);
+                printf(" %s : NUMBER\n", data[i]);
                 numCount++;
             }
             else if (IsOperation(data[i])) {
-                printf("%s : OPERATION\n", data[i]);
+                printf(" %s : OPERATION\n", data[i]);
                 opCount++;
             }
             else if (IsValidIndentifier(data[i])) {
-                printf("%s : INDENTIFIER \n", data[i]);
+                printf(" %s : INDENTIFIER \n", data[i]);
                 idCount++;
             }
             else {
@@ -124,11 +125,13 @@ int main ()
                 printf("%s : ERROR \n", data[i]);
             }
         }
-        printf("\n ===  RESULT  === \n Number: %d \n Operation: %d \n Function: %d \n Identifier: %d \n Error: %d \nTotal: %d", numCount, opCount, fnCount, idCount, errorCount, numCount + opCount + fnCount + errorCount + idCount);
-
+        printf("\n===  RESULT  === \n Number: %d \n Operation: %d \n Function: %d \n Identifier: %d \n Error: %d \nTotal: %d", numCount, opCount, fnCount, idCount, errorCount, numCount + opCount + fnCount + errorCount + idCount);
+        printf("\n*************************************\n");
         printf("\n\n");
+        printf("Analyse again\n");
         printf("Enter input: ");
         gets(input);
+        printf("\n\n\n\n\n");
     } while (strcmp(input, "end")!=0 && strcmp(input, "exit")!=0);
 
     printf("\nEnd");
