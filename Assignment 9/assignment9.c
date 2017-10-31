@@ -85,11 +85,19 @@ void ToLower(char *s) {
     for (i = 0;s[i];i++) s[i] = tolower(s[i]);
 }
 
+void RemoveSpaceAtCorner (char *s) {
+    while (s[strlen(s)-1] == ' ') input[strlen(s) - 1] = '\0'; // if last character is space then remove it by shift left
+    while (s[0] == ' ')
+        strcpy(s, s + 1); // If first character is space then remove it by shift left
+}
+
+
 int main ()
 {
     printf("Enter input: ");
     gets(input);
-    do
+    RemoveSpaceAtCorner(input);
+    while (strcmp(input, "end")!=0 && strcmp(input, "exit")!=0)
     {
         char temp[100], data[100][40];
         int errorCount = 0, fnCount = 0, opCount = 0, idCount =0, numCount = 0;
@@ -113,7 +121,7 @@ int main ()
                 numCount++;
             }
             else if (IsOperation(data[i])) {
-                printf(" %s : OPERATION\n", data[i]);
+                printf(" %s : OPERATOR\n", data[i]);
                 opCount++;
             }
             else if (IsValidIndentifier(data[i])) {
@@ -125,14 +133,16 @@ int main ()
                 printf("%s : ERROR \n", data[i]);
             }
         }
-        printf("\n===  RESULT  === \n Number: %d \n Operation: %d \n Function: %d \n Identifier: %d \n Error: %d \nTotal: %d", numCount, opCount, fnCount, idCount, errorCount, numCount + opCount + fnCount + errorCount + idCount);
+        printf("\n===  RESULT  === \n Number: %d \n Operation: %d \n Function: %d \n Identifier: %d \n Error: %d \nTotal: %d",
+         numCount, opCount, fnCount, idCount, errorCount, numCount + opCount + fnCount + errorCount + idCount);
         printf("\n*************************************\n");
         printf("\n\n");
         printf("Analyse again\n");
         printf("Enter input: ");
         gets(input);
+        RemoveSpaceAtCorner(input);
         printf("\n\n\n\n\n");
-    } while (strcmp(input, "end")!=0 && strcmp(input, "exit")!=0);
+    }
 
     printf("\nEnd");
 
