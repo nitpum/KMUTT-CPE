@@ -199,7 +199,31 @@ void Command (char *cmd)
     {
         int aRow = 0, aColumn = 0;
         int bRow = 0, bColumn = 0;
-
+        int aMatrix[MAX_ROW][MAX_COLUMN];
+        int bMatrix[MAX_ROW][MAX_COLUMN];
+        if (ReadFile(params[0], aMatrix, &aRow, &aColumn))
+        {
+            if (ReadFile(params[1], bMatrix, &bRow, &bColumn))
+            {
+                if (aRow != bRow || aColumn != bColumn)
+                {
+                    PrintInfo("Two matrix not the same size");
+                }
+                else
+                {
+                    int cMartix[aRow][MAX_COLUMN];
+                    for (int i = 0; i < aRow; i++)
+                    {
+                        for (int j = 0; j < aColumn; j++)
+                        {
+                            cMartix[i][j] = aMatrix[i][j] + bMatrix[i][j];
+                        }
+                    }
+                    ShowMatrix(cMartix, aRow, aColumn);
+                    WriteFile(params[1], cMartix, aRow, aColumn);
+                }
+            }
+        }
 
     }
 
