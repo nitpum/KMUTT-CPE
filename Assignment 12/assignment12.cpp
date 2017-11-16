@@ -220,7 +220,7 @@ void Command (char *cmd)
                         }
                     }
                     ShowMatrix(cMartix, aRow, aColumn);
-                    WriteFile(params[1], cMartix, aRow, aColumn);
+                    WriteFile(params[2], cMartix, aRow, aColumn);
                 }
             }
         }
