@@ -240,11 +240,6 @@ void Search_by_score (studentData data[], int count)
     }while(again == 'y');
 }
 
-void Search_by_score (studentData data[], int count)
-{
-
-}
-
 int menu ()
 {
     printf("*            [1] Read file                          *\n");
