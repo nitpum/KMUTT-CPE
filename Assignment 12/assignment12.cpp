@@ -41,7 +41,7 @@ int ReadFile (char *filename, int matrix[][MAX_COLUMN], int *row, int *column)
         char line[20][30];
         int lineCount = 0;
 
-        printf("[error] read file %s \n", filename);
+        printf("[add] read file %s \n", filename);
         // Count line
         while (!feof(file))
         {
@@ -151,7 +151,7 @@ int CommandCheck (char *cmd, int *errorParams, int param = 0)
         else
         {
             char c[50];
-            printf("[error] need %d parameter", param);
+            printf("[error] need %d parameter\n", param);
             *errorParams = 1;
             return 0;
         }
