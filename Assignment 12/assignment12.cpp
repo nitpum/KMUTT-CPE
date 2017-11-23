@@ -224,7 +224,102 @@ void Command (char *cmd)
                 }
             }
         }
+    }
+    else if (CommandCheck("remove", &errorParams, 3))
+    {
+        int aRow = 0, aColumn = 0;
+        int bRow = 0, bColumn = 0;
+        int aMatrix[MAX_ROW][MAX_COLUMN];
+        int bMatrix[MAX_ROW][MAX_COLUMN];
+        if (ReadFile(params[0], aMatrix, &aRow, &aColumn))
+        {
+            if (ReadFile(params[1], bMatrix, &bRow, &bColumn))
+            {
+                if (aRow != bRow || aColumn != bColumn)
+                {
+                    PrintInfo("Two matrix not the same size");
+                }
+                else
+                {
+                    int cMartix[aRow][MAX_COLUMN];
+                    for (int i = 0; i < aRow; i++)
+                    {
+                        for (int j = 0; j < aColumn; j++)
+                        {
+                            cMartix[i][j] = aMatrix[i][j] - bMatrix[i][j];
+                        }
+                    }
+                    ShowMatrix(cMartix, aRow, aColumn);
+                    WriteFile(params[2], cMartix, aRow, aColumn);
+                }
+            }
+        }
+    }
+    else if (CommandCheck("multipy", &errorParams, 3))
+    {
+        int aRow = 0, aColumn = 0;
+        int bRow = 0, bColumn = 0;
+        int aMatrix[MAX_ROW][MAX_COLUMN];
+        if (ReadFile(params[0], aMatrix, &aRow, &aColumn))
+        {
+            int cMartix[aRow][MAX_COLUMN];
+            printf("%d", atoi(params[1]));
+            for (int i = 0; i < aRow; i++)
+            {
+                for (int j = 0; j < aColumn; j++)
+                {
+                    cMartix[i][j] = aMatrix[i][j] * atoi(params[1]);
+                }
+            }
+            ShowMatrix(cMartix, aRow, aColumn);
+            WriteFile(params[2], cMartix, aRow, aColumn);
+        }
+    }
+    else if (CommandCheck("det", &errorParams, 1))
+    {
+        int row = 0, column = 0;
+        int matrix[30][MAX_COLUMN];
+        if (ReadFile(params[0], matrix, &row, &column))
+        {
+            if (row == column)
+            {
+                ShowMatrix(matrix, row, column);
+                int a = 0, b = 0;
+                for (int j = 0; j < column; j++)
+                {
+                    int line = matrix[0][j];
+                    //printf("%d ", matrix[0][j]);
+                    for (int i = 1; i < row; i++)
+                    {
+                        //printf("%d ", matrix[i][(j + i)%(column)]);
+                        line = line * matrix[i][(j + i)%(column)];
+                    }
+                    //printf("= %d \n", line);
+                    a += line;
 
+                }
+
+
+
+                for (int j = 0; j < column; j++)
+                {
+                    int line = matrix[row-1][j];
+                    //printf("%d ", matrix[row-1][j]);
+                    for (int i = row - 2; i >= 0; i--)
+                    {
+                        //printf("%d_%d ", matrix[i][(j + ((row-1) - i))%(column)], j + ((row-1) - i));
+                        line = line * matrix[i][(j + ((row-1) - i))%(column)];
+                    }
+                    //printf("= %d \n", line);
+                    b += line;
+                }
+                printf("Det is %d \n", a - b);
+            }
+            else
+            {
+                PrintInfo("Matrix must be same size");
+            }
+        }
     }
 
     if (errorParams == 0)
@@ -234,6 +329,8 @@ void Command (char *cmd)
 
 int main ()
 {
+
+
     do
     {
         rewind(stdin);
