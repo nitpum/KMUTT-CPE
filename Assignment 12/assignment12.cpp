@@ -10,34 +10,27 @@ char command[50];
 char params[3][30];
 int paramsCount = 0;
 
-void PrintInfo(char *msg, char *header = command)
-{
-    printf("[%s] %s \n", header, msg);
-}
-
+// Set string to lower alphabet
 void ToLower(char *s) {
-    int i;
-    for (i = 0;s[i];i++) s[i] = tolower(s[i]);
+    for (int i = 0;s[i];i++) s[i] = tolower(s[i]);
 }
 
-void SplitCommand (char cmd[])
-{
-    // Reset params
-    paramsCount = 0;
+// Split command and parameters and keep to variable
+void SplitCommand (char cmd[]) {
+    paramsCount = 0; // Reset count
 
-    strcpy(params[0], "");
-    strcpy(params[1], "");
-    strcpy(params[2], "");
-    //
+    strcpy(params[0], ""); // Reset
+    strcpy(params[1], ""); // Reset
+    strcpy(params[2], ""); // Reset
+    // Get command and parameters
     sscanf(cmd, "%s %s %s %s", command, params[0], params[1], params[2]);
     // Count parameter
     if (strcmp(params[0], "") != 0) paramsCount++;
     if (strcmp(params[1], "") != 0) paramsCount++;
     if (strcmp(params[2], "") != 0) paramsCount++;
-
+    // Set command to lower for easily check
     ToLower(command);
 }
-
 
 int ReadFile (char *filename, int matrix[][MAX_COLUMN], int *row, int *column)
 {
@@ -45,12 +38,11 @@ int ReadFile (char *filename, int matrix[][MAX_COLUMN], int *row, int *column)
     int a;
     if ((file = fopen(filename, "r")) != NULL)
     {
-        char newline;
         char line[20][30];
         int lineCount = 0;
 
-        printf("Read file %s \n", filename);
-
+        printf("[error] read file %s \n", filename);
+        // Count line
         while (!feof(file))
         {
             if (fgets(line[lineCount], sizeof(line[lineCount]), file))
@@ -65,12 +57,10 @@ int ReadFile (char *filename, int matrix[][MAX_COLUMN], int *row, int *column)
         sscanf(line[0], "%d %d", row, column);
         // Set matrix data
         int i;
-        for (i = 0; i < *row; i++) // ROW
+        for (i = 0; i < *row; i++) // LOOP ROW
         {
-            // COLUMN
-            int space;
-            char *token = strtok(line[i + 1], " ");
-            for (int j = 0; j < *column && token != NULL; j++)
+            char *token = strtok(line[i + 1], " "); // Split by space
+            for (int j = 0; j < *column && token != NULL; j++) // LOOP COLUMN
             {
                 matrix[i][j] = atoi(token);
                 token = strtok(NULL, " ");
@@ -79,7 +69,7 @@ int ReadFile (char *filename, int matrix[][MAX_COLUMN], int *row, int *column)
 
         fclose(file);
     } else {
-        PrintInfo("Can't read file.");
+        printf("[error] can't read file.\n");
         return 0;
     }
     return 1;
@@ -90,28 +80,30 @@ void WriteFile (char *filename, int matrix[][MAX_COLUMN], int row, int column)
     FILE *file = fopen(filename, "w");
     if (file != NULL)
     {
+        // Write row and column
         fprintf(file, "%d %d\n", row, column);
-        for (int i = 0; i < row; i++)
+        for (int i = 0; i < row; i++) // LOOP ROW
         {
-            for (int j = 0; j < column; j++)
+            for (int j = 0; j < column; j++) // COLUMN
             {
-                fprintf(file, "%d ", matrix[i][j]);
+                fprintf(file, "%d ", matrix[i][j]); // Write each column
             }
-            fprintf(file, "\n");
+            fprintf(file, "\n"); // New line for next row
         }
         fclose(file);
     }
     else {
-        PrintInfo("Can't write file.");
+        printf("[error] can't write file.\n");
     }
 }
 
+// Show martix data
 void ShowMatrix (int matrix[][MAX_COLUMN], int row, int column)
 {
     printf("MATRIX: %d x %d\n", row, column);
-    for (int i = 0; i < row; i++)
+    for (int i = 0; i < row; i++) // ROW
     {
-        for (int j = 0; j < column; j++)
+        for (int j = 0; j < column; j++) // COLUMN
         {
             printf("%d ", matrix[i][j]);
         }
@@ -121,19 +113,20 @@ void ShowMatrix (int matrix[][MAX_COLUMN], int row, int column)
 
 void Transpose (int matrix[][MAX_COLUMN], int *row, int *column)
 {
+     // Copy original and transpose matrix
     int data[*row][MAX_COLUMN];
-    // Copy
     for (int i = 0; i < *row; i++)
     {
         for (int j = 0; j < *column; j++)
         {
-            data[i][j] = matrix[i][j];
+            data[i][j] = matrix[i][j]; // transpose
         }
     }
-    // Transpose
+    // Transpose row and column
     int _column = * row;
     *row = *column;
     *column = _column;
+    // Set transposed matrix
     for (int i = 0; i < *row; i++)
     {
         for (int j = 0; j < *column; j++)
@@ -143,12 +136,14 @@ void Transpose (int matrix[][MAX_COLUMN], int *row, int *column)
     }
 }
 
-
+// Check input command that have to enough parameters
+// return 0 if have not enough parameters
+// return 1 if have enough parameters
 int CommandCheck (char *cmd, int *errorParams, int param = 0)
 {
     if (strcmp(command, cmd) == 0)
     {
-        if (param == paramsCount)
+        if (param == paramsCount) // Don't have enough parameters
         {
             *errorParams = -1;
             return 1;
@@ -156,8 +151,7 @@ int CommandCheck (char *cmd, int *errorParams, int param = 0)
         else
         {
             char c[50];
-            sprintf(c, "Need %d parameter", param);
-            PrintInfo(c);
+            printf("[error] need %d parameter", param);
             *errorParams = 1;
             return 0;
         }
@@ -165,19 +159,18 @@ int CommandCheck (char *cmd, int *errorParams, int param = 0)
     else return 0;
 }
 
+// All command
 void Command (char *cmd)
 {
     int errorParams = 0;
     if (CommandCheck("clear", &errorParams))
     {
+        // Clear screen
         system("cls");
-    }
-    else if (CommandCheck("hi", &errorParams))
-    {
-        PrintInfo("Hello");
     }
     else if (CommandCheck("show", &errorParams, 1))
     {
+         // Show matrix from file
         int row = 0, column = 0;
         int matrix[30][MAX_COLUMN];
         if (ReadFile(params[0], matrix, &row, &column))
@@ -185,6 +178,7 @@ void Command (char *cmd)
     }
     else if (CommandCheck("transpose", &errorParams, 2))
     {
+        // Transpose matrix
         int row = 0, column = 0;
         int matrix[30][MAX_COLUMN];
         if (ReadFile(params[0], matrix, &row, &column))
@@ -197,20 +191,24 @@ void Command (char *cmd)
     }
     else if (CommandCheck("add", &errorParams, 3))
     {
+        // Combine two matrix
         int aRow = 0, aColumn = 0;
         int bRow = 0, bColumn = 0;
         int aMatrix[MAX_ROW][MAX_COLUMN];
         int bMatrix[MAX_ROW][MAX_COLUMN];
-        if (ReadFile(params[0], aMatrix, &aRow, &aColumn))
+        if (ReadFile(params[0], aMatrix, &aRow, &aColumn)) // Read matrix A
         {
-            if (ReadFile(params[1], bMatrix, &bRow, &bColumn))
+            if (ReadFile(params[1], bMatrix, &bRow, &bColumn)) // Read matrix B
             {
+                // Check A and B is same row and same column
                 if (aRow != bRow || aColumn != bColumn)
                 {
-                    PrintInfo("Two matrix not the same size");
+                    // Matrix not same size
+                    printf("[error] two matrix not the same size.\n");
                 }
                 else
                 {
+                    // A and B are same size then combine to C
                     int cMartix[aRow][MAX_COLUMN];
                     for (int i = 0; i < aRow; i++)
                     {
@@ -219,7 +217,9 @@ void Command (char *cmd)
                             cMartix[i][j] = aMatrix[i][j] + bMatrix[i][j];
                         }
                     }
+                    // Print matrix C
                     ShowMatrix(cMartix, aRow, aColumn);
+                    // Write file
                     WriteFile(params[2], cMartix, aRow, aColumn);
                 }
             }
@@ -231,13 +231,13 @@ void Command (char *cmd)
         int bRow = 0, bColumn = 0;
         int aMatrix[MAX_ROW][MAX_COLUMN];
         int bMatrix[MAX_ROW][MAX_COLUMN];
-        if (ReadFile(params[0], aMatrix, &aRow, &aColumn))
+        if (ReadFile(params[0], aMatrix, &aRow, &aColumn)) // Read matrix A
         {
-            if (ReadFile(params[1], bMatrix, &bRow, &bColumn))
+            if (ReadFile(params[1], bMatrix, &bRow, &bColumn)) // Read matrix B
             {
                 if (aRow != bRow || aColumn != bColumn)
                 {
-                    PrintInfo("Two matrix not the same size");
+                    printf("[error] two matrix not the same size.\n");
                 }
                 else
                 {
@@ -279,57 +279,51 @@ void Command (char *cmd)
     {
         int row = 0, column = 0;
         int matrix[30][MAX_COLUMN];
-        if (ReadFile(params[0], matrix, &row, &column))
+        if (ReadFile(params[0], matrix, &row, &column)) // Read matrix file
         {
+            // row and column must be same size for det
             if (row == column)
             {
+                // Print matrix
                 ShowMatrix(matrix, row, column);
+
                 int a = 0, b = 0;
+                // Lower
                 for (int j = 0; j < column; j++)
                 {
                     int line = matrix[0][j];
-                    //printf("%d ", matrix[0][j]);
                     for (int i = 1; i < row; i++)
                     {
-                        //printf("%d ", matrix[i][(j + i)%(column)]);
                         line = line * matrix[i][(j + i)%(column)];
                     }
-                    //printf("= %d \n", line);
                     a += line;
-
                 }
-
-
-
+                // Upper
                 for (int j = 0; j < column; j++)
                 {
                     int line = matrix[row-1][j];
-                    //printf("%d ", matrix[row-1][j]);
                     for (int i = row - 2; i >= 0; i--)
                     {
-                        //printf("%d_%d ", matrix[i][(j + ((row-1) - i))%(column)], j + ((row-1) - i));
                         line = line * matrix[i][(j + ((row-1) - i))%(column)];
                     }
-                    //printf("= %d \n", line);
                     b += line;
                 }
+                // Print det value
                 printf("Det is %d \n", a - b);
             }
             else
             {
-                PrintInfo("Matrix must be same size");
+                printf("[error] matrix must be same size.\n");
             }
         }
     }
 
     if (errorParams == 0)
-        PrintInfo("commmand not found");
+        printf("[error] commmand not found.\n");
 }
-
 
 int main ()
 {
-
 
     do
     {
@@ -337,9 +331,10 @@ int main ()
         printf("> ");
         char cmd[100];
         gets(cmd);
-        SplitCommand(cmd);
+        SplitCommand(cmd); // Split command
         if (strcmp(command, "end") != 0 && strcmp(command, "exit") != 0)
-            Command(command);
+            Command(command); // Check command action
     } while(strcmp(command, "end") != 0 && strcmp(command, "exit") != 0);
+
     return 0;
 }
