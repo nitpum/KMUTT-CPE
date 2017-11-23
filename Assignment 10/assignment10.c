@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int load_txt_file (char *filename, int data[], int *count)
 {
@@ -27,6 +28,7 @@ void load_binary_file (char *filename, int data[], int *count)
     int a;
     if ((file = fopen(filename, "rb")) != NULL)
     {
+        *count = 0;
         while (!feof(file))
         {
             if (fread(&a, sizeof(int), 1, file ) == 1)
@@ -55,8 +57,12 @@ int comparator(const void *a, const void *b)
 }
 
 
-void sol1 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount)
+void sol1 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount, double *time)
 {
+    clock_t startTime, endTime;
+    double totalTime;
+    printf("\n\n ============ Case 1 ============\n");
+    startTime = clock();
 
     int i, j;
     for (i = 0; i < *count1;i++) { // data 1
@@ -69,11 +75,22 @@ void sol1 (int data1[], int data2[], int result[], int *count1, int *count2, int
             }
         }
     }
+    endTime = clock();
+    totalTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+    *time = totalTime;
+    printf("  Total time: %f s", totalTime);
+    printf("\n  Result Count: %d\n", *resultCount);
+    preview(result, resultCount);
 
 }
 
-void sol2 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount)
+void sol2 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount, double *time)
 {
+    clock_t startTime, endTime;
+    double totalTime;
+    printf("\n\n ============ Case 2 ============\n");
+    startTime = clock();
+
     int i, j;
     qsort(data2, *count2, sizeof(int), comparator); // Sort data2
     for (i = 0; i < *count1;i++) { // data 1
@@ -84,10 +101,21 @@ void sol2 (int data1[], int data2[], int result[], int *count1, int *count2, int
             *resultCount = *resultCount + 1;
         }
     }
+    endTime = clock();
+    totalTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+    *time = totalTime;
+    printf("  Total time: %f s", totalTime);
+    printf("\n  Result Count: %d\n", *resultCount);
+    preview(result, resultCount);
 
 }
-void sol3 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount)
+void sol3 (int data1[], int data2[], int result[], int *count1, int *count2, int *resultCount, double *time)
 {
+    clock_t startTime, endTime;
+    double totalTime;
+    printf("\n\n ============ Case 3 ============\n");
+    startTime = clock();
+
     int i, j;
     qsort(data1, *count1, sizeof(int), comparator); // Sort data 2
     qsort(data2, *count2, sizeof(int), comparator); // Sort data 2
@@ -104,6 +132,16 @@ void sol3 (int data1[], int data2[], int result[], int *count1, int *count2, int
             j++; // Go to next data 2
         }
     }
+    endTime = clock();
+    totalTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+    *time = totalTime;
+    printf("  Total time: %f s", totalTime);
+    printf("\n  Result Count: %d\n", *resultCount);
+    preview(result, resultCount);
+
+}
+
+void reset(int result[], int *resultCount) {
 
 }
 
@@ -111,17 +149,32 @@ int main ()
 {
     int txt[100000], binary[100000], result[100000];
     int txtCount = 0, binaryCount = 0, resultCount = 0;
+    double time1 = 0, time2 = 0, time3 = 0;
     load_txt_file("txt100000.txt", txt, &txtCount);
     printf("Txt Count: %d\n", txtCount);
     load_binary_file("bin100000.bin", binary, &binaryCount);
     printf("Binary Count: %d\n", binaryCount);
 
-    //sol1(txt, binary, result, &txtCount, &binaryCount, &resultCount);
-    //sol2(txt, binary, result, &txtCount, &binaryCount, &resultCount);
-    //sol3(txt, binary, result, &txtCount, &binaryCount, &resultCount);
+    sol1(txt, binary, result, &txtCount, &binaryCount, &resultCount, &time1);
+    resultCount = 0;
+    load_txt_file("txt100000.txt", txt, &txtCount);
+    load_binary_file("bin100000.bin", binary, &binaryCount);
+    sol2(txt, binary, result, &txtCount, &binaryCount, &resultCount, &time2);
+    resultCount = 0;
+    load_txt_file("txt100000.txt", txt, &txtCount);
+    load_binary_file("bin100000.bin", binary, &binaryCount);
+    sol3(txt, binary, result, &txtCount, &binaryCount, &resultCount, &time3);
 
-    printf("\n Result Count: %d\n", resultCount);
-    preview(result, &resultCount);
+    printf("\n\n\n=========== RESULT ===========\n");
+    printf("Time | Case 1: %f s, Case 2: %f s, Case 3: %f s\n", time1, time2, time3);
+    if (time1 < time2 && time1 < time3)
+        printf("Case 1 is fastest!!!\n");
+    else if (time2 < time1 && time2 < time3)
+        printf("Case 2 is fastest!!!\n");
+    else if (time3 < time1 && time3 < time2)
+        printf("Case 3 is fastest!!!\n");
+    else if (time3 == time2)
+        printf("Case 3 == Case 2 case.\n");
 
     return 0;
 }
