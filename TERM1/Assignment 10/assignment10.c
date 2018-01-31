@@ -15,7 +15,7 @@ int load_txt_file (char *filename, int data[], int *count)
         while (fscanf(file, "%d", &a) == 1)
         {
             // เมื่อเจอค่าเก็บเข้าอาเรย์และนับจำนวนเพิ่ม
-            data[*count] = a; 
+            data[*count] = a;
             *count = *count + 1;
         }
         fclose(file);
@@ -42,7 +42,7 @@ void load_binary_file (char *filename, int data[], int *count)
             if (fread(&a, sizeof(int), 1, file ) == 1)
             {
                 // นำค่าที่อ่านได้เก็บเข้าอาเรย์ และนับจำนวนเพิ่ม
-                data[*count] = a; 
+                data[*count] = a;
                 *count = *count + 1;
             }
         }
@@ -185,7 +185,7 @@ void sol3 (int data1[], int data2[], int result[], int *count1, int *count2, int
 int main ()
 {
     // อาเรย์สำหรับเก็บข้อมูล
-    int txt[100000], binary[100000], result[100000];
+    int txt[173074], binary[173074], result[173074];
     // จำนวนอาเรย์
     int txtCount = 0, binaryCount = 0, resultCount = 0;
     // เวลา
