@@ -34,13 +34,6 @@ int is_number(char *s) {
     else return 0;
 }
 
-void remove_node (linkedlist * prev, linkedlist * current) {
-    prev->next = current->next;
-    if (last == current)
-        last = prev;
-    listCount--;
-}
-
 void getparameter (char input[], char cmd[], char param[][20], int *paraCount) {
     *paraCount = 0;
     // Clear old string
@@ -70,22 +63,15 @@ void getparameter (char input[], char cmd[], char param[][20], int *paraCount) {
     }
 }
 
-
 int command (char name[], int needParam, char cmd[], int paraCount, int *err) {
     if (strcmp(name, cmd) == 0) {
         if (needParam > 0) {
-            if (paraCount == needParam) {
-                *err = 0;
-                return 1;
-            } else {
+            if (paraCount != needParam) {
                 *err = 1;
                 return 1;
             }
         } else if (needParam == -1) {
-            if (paraCount >= 1) {
-                *err = 0;
-                return 1;
-            } else {
+            if (paraCount < 1) {
                 *err = 1;
                 return 1;
             }
@@ -96,8 +82,7 @@ int command (char name[], int needParam, char cmd[], int paraCount, int *err) {
         *err = 0;
         return 1;
     }
-
-    return 0;
+    return 0; // not this command
 }
 
 int is_sorted ()
@@ -109,10 +94,6 @@ int is_sorted ()
         current = current->next;
     }
     return 1;
-}
-
-void sorted () {
-
 }
 
 void print_list () {
@@ -131,8 +112,8 @@ void print_list () {
     }
 }
 
-void add (double value) {
-    linkedlist *node;
+void add_node (double value) {
+    linkedlist * node;
     node = (linkedlist *) malloc(sizeof(linkedlist));
     node->next = NULL;
     node->value = value;
@@ -144,6 +125,36 @@ void add (double value) {
         last = node;
     }
     listCount++;
+}
+
+void remove_node (linkedlist * prev, linkedlist * current) {
+    if (prev != NULL)       prev->next = current->next;
+    if (current == first)   first = current->next;
+    if (current == last) {
+        last = prev;
+        if (last != NULL) last->next = NULL;
+    }
+    listCount--;
+}
+
+void swap_node (linkedlist * a, linkedlist * b) {
+    double tmp_value = a->value;
+    a->value = b->value;
+    b->value = tmp_value;
+}
+
+void sorted () {
+    linkedlist * i = first;
+    printf("first: %g\n", first->value);
+    while (i != NULL) {
+        linkedlist * j = i->next;
+        while (j != NULL) {
+            if (i->value > j->value)
+                swap_node(i, j);
+            j = j->next;
+        }
+        i = i->next;
+    }
 }
 
 int main () {
@@ -176,7 +187,7 @@ int main () {
                 for (i = 0; i < paraCount; i++) {
                     double value;
                     sscanf(param[i], "%lf", &value);
-                    add(value);
+                    add_node(value);
                 }
             }
         }
@@ -230,16 +241,13 @@ int main () {
                         if (current->value != value) {
                             prev = current;
                             current = current->next;
-                        } else {
+                        } else { // Found
                             printf("anwser> %g found enter y to confirm: ", value);
                             char confirm[20];
                             scanf("%s", confirm);
                             if (strcmp(confirm, "y") == 0 || strcmp(confirm, "Y") == 0) {
                                 found++;
-                                if (first == current)
-                                    first = current->next;
-                                if (prev != NULL)
-                                    prev->next = current->next;
+                                remove_node(prev, current);
                                 current = current->next;
                             }
                         }
@@ -281,8 +289,7 @@ int main () {
             if (listCount <= 0) {
                 printf("anwser> current list is empty\n");
             } else {
-                listCount--;
-                first = first->next;
+                remove_node(NULL, first);
             }
         }
         else if (command("sqrt", 0, cmd, paraCount, &err) && err == 0) {
@@ -343,7 +350,7 @@ int main () {
                 first->value = first->next->value / first->value ;
                 remove_node(first, first->next);
             } else {
-                printf("answer> Can't operation\n");
+                printf("answer> can't operation\n");
             }
         }
         else if (command("pow", 0, cmd, paraCount, &err) && err == 0) {
@@ -353,7 +360,7 @@ int main () {
                 first->value = pow(first->next->value, first->value);
                 remove_node(first, first->next);
             } else {
-                printf("answer> Can't operation\n");
+                printf("answer> can't operation\n");
             }
         }
         else if (command("insert", 1, cmd, paraCount, &err) && err == 0) {
@@ -372,20 +379,35 @@ int main () {
                     if (is_sorted() == 0) {
                         printf("answer> can't insert before sort\n");
                     } else {
-                        linkedlist * current = first;
                         linkedlist * node;
-                        while (current->next != NULL && current->next->value < atof(param[0])) {
-                            current = current->next;
-                        }
+                        node = (linkedlist *) malloc(sizeof(linkedlist));
                         node->value = atof(param[0]);
-                        node->next = current->next;
-                        current->next = node;
-                        if (current == last)
-                            last = node;
-
+                        if (first == NULL) {
+                            first = last = node;
+                        }
+                        else if (first->value > node->value) {
+                            node->next = first;
+                            first = node;
+                        } else {
+                            linkedlist * current = first;
+                            while (current->next != NULL && current->next->value < atof(param[0])) {
+                                current = current->next;
+                            }
+                            node->next = current->next;
+                            current->next = node;
+                            if (current == last)
+                                last = node;
+                        }
                     }
                 }
             }
+        }
+        else if (command("sort", 0, cmd, paraCount, &err) && err == 0) {
+            sorted();
+        }
+        else if (command("help", 0, cmd, paraCount, &err) && err == 0) {
+            printf("answer> list of command\n");
+            printf(" - add\n - peek\n - delete\n - push\n - pop\n - sqrt\n - rec\n - neg\n - [+]\n - [-]\n - [*]\n - [/]\n - pow\n - insert \n - sort\n - help\n - end\n");
         }
         else if (command("end", 0, cmd, paraCount, &err) && err == 0) {
             programEnd = 1;

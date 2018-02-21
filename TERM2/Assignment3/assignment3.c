@@ -56,7 +56,7 @@ void print_index_data (data_struct data[], int index)
     printf("\n data[%d] = %llu, %s, %s", index, data[index].field1, data[index].field2, data[index].field3);
 }
 
-void print_data (int _count)
+void print_data (data_struct data[], int _count)
 {
     int i;
     for (i = 0; i < _count; i++)
@@ -121,7 +121,6 @@ void quick_sort_f3 (data_struct _data[], int first, int last)
 
 void copy_array (data_struct a[], data_struct b[], int count)
 {
-
     int i = 0;
     for (i = 0; i < count;i++) {
         b[i] = a[i];
@@ -224,7 +223,6 @@ double qsort_field3 (int round, data_struct original_data[])
 
 int main ()
 {
-
     read_file("test.csv", &count);
 
     double myTimeNumber[3], myTimeString[3],qsortTimeNumber[3], qsortTimeString[3], myBestNum, myBestStr, bestNum, bestStr;
