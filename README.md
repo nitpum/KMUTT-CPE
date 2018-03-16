@@ -1,9 +1,2 @@
-This is a my git repo for keep my cpe100 assignment
-
-# Branch
-
-## Master
-Final version of finished assigment.
-
-## WIP
-Unfinished assignment or working in process.
+# KMUTT CPE
+This is a my repo for keep my cpe project or assignment. feel free to edit or distribute
