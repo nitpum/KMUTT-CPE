@@ -5,3 +5,6 @@
 ~$*.docx*
 .metadata
 .recommenders
+.classpath
+.project
+*.prefs
