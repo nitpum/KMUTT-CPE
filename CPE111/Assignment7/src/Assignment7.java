@@ -15,12 +15,10 @@ public class Assignment7 {
 		System.out.println("Total: " + dictionary.list.size());
 		// Remove duplicate
 //		dictionary.RemoveDuplicate();
-		System.out.println("Duplicate: " + dictionary.duplicateCount);
-		System.out.println("Remaining: " + dictionary.list.size());
+//		System.out.println("Duplicate: " + dictionary.duplicateCount);
+//		System.out.println("Remaining: " + dictionary.list.size());
 //		System.out.println("Maximumn meaning word " + dictionary.maxWord + " have " + dictionary.maxWordCount + " meaning.");
 //		dictionary.PrintMaxWordList();
-		
-		dictionary.Print(23455, 23470, true);
 		
 		// Scanner
 		Scanner sc = new Scanner(System.in);
@@ -74,7 +72,7 @@ public class Assignment7 {
 		if (in != null && fr != null) {
 			Scanner sc = new Scanner(fr);
 			while (sc.hasNext()) {
-				dictionary.Add(new DNode(sc.nextLine().trim().replaceAll("\\s+", " ")));
+				dictionary.Add(new DNode(sc.nextLine().trim().replaceAll("\\s+", " ").replace("\uFEFF","")));
 			}
 			sc.close();
 		}

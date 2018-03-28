@@ -33,6 +33,7 @@ public class DNode implements Comparable<DNode> {
 		return word.trim().replaceAll("\\s+", " ").toLowerCase().equalsIgnoreCase(_target.trim().replaceAll("\\s+", " ").toLowerCase());
 	}
 	
+	@Override
 	public int compareTo (DNode a)
 	{
 		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(a.word.trim().replaceAll("\\s+", " "));
@@ -40,8 +41,7 @@ public class DNode implements Comparable<DNode> {
 	
 	public boolean compareAll (DNode a)
 	{
-		if (	
-				word.trim().replaceAll("\\s+", " ").toLowerCase().compareToIgnoreCase(a.word.trim().replaceAll("\\s+", " ").toLowerCase()) == 0 
+		if (	word.trim().replaceAll("\\s+", " ").toLowerCase().compareToIgnoreCase(a.word.trim().replaceAll("\\s+", " ").toLowerCase()) == 0 
 				&& meaning.compareToIgnoreCase(a.meaning) == 0 
 				&& type.compareToIgnoreCase(a.type) == 0
 			)
