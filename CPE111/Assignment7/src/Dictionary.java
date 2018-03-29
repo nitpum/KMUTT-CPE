@@ -86,12 +86,14 @@ public class Dictionary {
 		int wordCounter = 0;
 		int index = 0;
 		String lastWord = "";
+		Dictionary wordList = new Dictionary();
 		for (int i = 0; i < list.size(); i++)
 		{
 			DNode dict = list.get(i);
 			
 			if (dict.compareTo(new DNode(lastWord)) == 0) // Same last word count incease
 			{
+				wordList.Add(dict);
 				wordCounter++;
 			}
 			else // Found new wrod
@@ -101,11 +103,13 @@ public class Dictionary {
 				{
 					indexMaxWord = index;
 					maxWordCount = wordCounter;
+					maxWordList.Copy(wordList);
 				}
 				
 				// Count new word
 				index = i;
 				wordCounter = 1;
+				wordList.list.clear();
 			}
 			lastWord = dict.word; // Set last word
 		}
@@ -149,6 +153,15 @@ public class Dictionary {
 		{
 			DNode dict = list.get(i);
 			dict.Print(i);
+		}
+	}
+	
+	public void Copy (Dictionary source)
+	{
+		list.clear();
+		for (int i = 0; i < source.list.size(); i++) 
+		{
+			list.add(source.list.get(i));
 		}
 	}
 
