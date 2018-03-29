@@ -9,16 +9,20 @@ public class Assignment7 {
 	public static void main(String[] args) {
 		dictionary = new Dictionary();
 		
+		// Read file
 		ReadFile("utf8lexitron.csv");
+		
 		// Sort
 		dictionary.Sort();
 		System.out.println("Total: " + dictionary.list.size());
 		// Remove duplicate
-//		dictionary.RemoveDuplicate();
-//		System.out.println("Duplicate: " + dictionary.duplicateCount);
-//		System.out.println("Remaining: " + dictionary.list.size());
-//		System.out.println("Maximumn meaning word " + dictionary.maxWord + " have " + dictionary.maxWordCount + " meaning.");
-//		dictionary.PrintMaxWordList();
+		dictionary.RemoveDuplicate();
+		System.out.println("Duplicate: " + dictionary.duplicateCount);
+		System.out.println("Remaining: " + dictionary.list.size());
+		// Find maximum word
+		dictionary.FindMaximumWord();
+		System.out.println("Maximumn meaning word " + dictionary.Get(dictionary.indexMaxWord).word + " have " + dictionary.maxWordCount + " meaning.");
+		dictionary.PrintMaxWordList();		
 		
 		// Scanner
 		Scanner sc = new Scanner(System.in);
@@ -41,11 +45,14 @@ public class Assignment7 {
 				int end [] = {-1};
 				// Search
 				dictionary.SearchWord(input, start, end);
-				DNode node = new DNode(input);
-				// If start index is not null then print
-				if (start[0] >= 0) {
+				if (start[0] >= 0) // Found 
+				{
 					System.out.println("found " + dictionary.list.get(start[0]).word + " " + (end[0] - start[0] + 1) +  " word at " + start[0] + " - " + end[0]);
 					dictionary.Print(start[0], end[0]);
+				}
+				else // Not found
+				{
+					System.out.println(input + " not found");
 				}
 			}
 		} while (endProgram == false);
@@ -72,7 +79,7 @@ public class Assignment7 {
 		if (in != null && fr != null) {
 			Scanner sc = new Scanner(fr);
 			while (sc.hasNext()) {
-				dictionary.Add(new DNode(sc.nextLine().trim().replaceAll("\\s+", " ").replace("\uFEFF","")));
+				dictionary.Add(new DNode(sc.nextLine().trim().replace("\uFEFF","").replaceAll("\\s+", " ")));
 			}
 			sc.close();
 		}

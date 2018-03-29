@@ -21,29 +21,17 @@ public class DNode implements Comparable<DNode> {
 		}
 	}	
 	
-	// Overload equalWord
-	public boolean equalWord (DNode _target)
-	{
-		return equalWord(_target.word);
-	}
-	
-	// Check between a and b word is equalIgnoreCase, trim and remove middle space
-	public boolean equalWord (String _target)
-	{
-		return word.trim().replaceAll("\\s+", " ").toLowerCase().equalsIgnoreCase(_target.trim().replaceAll("\\s+", " ").toLowerCase());
-	}
-	
 	@Override
-	public int compareTo (DNode a)
+	public int compareTo (DNode target)
 	{
-		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(a.word.trim().replaceAll("\\s+", " "));
+		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(target.word.trim().replaceAll("\\s+", " "));
 	}
 	
 	public boolean compareAll (DNode a)
 	{
-		if (	word.trim().replaceAll("\\s+", " ").toLowerCase().compareToIgnoreCase(a.word.trim().replaceAll("\\s+", " ").toLowerCase()) == 0 
-				&& meaning.compareToIgnoreCase(a.meaning) == 0 
-				&& type.compareToIgnoreCase(a.type) == 0
+		if (	word.trim().replaceAll("\\s+", " ").equalsIgnoreCase(a.word.trim().replaceAll("\\s+", " ")) 
+				&& meaning.equalsIgnoreCase(a.meaning) 
+				&& type.equalsIgnoreCase(a.type)
 			)
 			return true;
 		return false;
