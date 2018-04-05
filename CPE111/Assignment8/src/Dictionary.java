@@ -13,157 +13,66 @@ public class Dictionary {
 	public int maxWordCount = 0;
 	
 	// Use for collect list of max duplicate word
-	public Dictionary maxWordList;
+	public TreeSet<BNode> duplicate = new TreeSet<BNode>();
 	
-//	public BNode Get (int index)
-//	{
-//		return list.get(index);
-//	}
-//	
-//	public void Add (BNode node)
-//	{
-//		list.add(node);
-//	}
-//	
-////	public void Sort ()
-////	{
-////		Collections.sort(list);
-////	}
-//	
-//	public void SearchWord (String _word, int[] _start, int[] _end)
-//	{
-//		BNode key = new BNode(_word);
-//		// Search
-//		int index = Collections.binarySearch(list, key);
-//		int endIndex = -1;
-//		// Check found word
-//		if (index >= 0) {
-//			// Check word before
-//			for (int i = index - 1; i >= 0; i--) 
-//			{
-//				if (list.get(i).compareTo(key) == 0) index = i;
-//			}
-//			// Find end index
-//			endIndex = index; // Set end index
-//			for (int i = index + 1; i < list.size(); i++) 
-//			{
-//				if (list.get(i).compareTo(key) == 0) endIndex++; // Move end index
-//			}
-//			// Return data
-//			_start[0] = index; // start index
-//			_end[0] = endIndex; // end index
-//		}
-//		else
-//		{
-//			_start[0] = -1;
-//			_end[0] = -1;
-//		}
-//		
-//	}
-//	
-//	// Overload
-//	public void Print (int _start, int _end)
-//	{
-//		Print(_start, _end, false);
-//	}
-//	
-//	// Print dict from start index to end int
-//	public void Print (int _start, int _end, boolean realIndex)
-//	{
-//		for (int i = _start; i <= _end && i < list.size(); i++) 
-//		{
-//			BNode dict = list.get(i);
-//			if (realIndex) // Print real index
-//				dict.Print(i);
-//			else dict.Print( (_end - _start + 1) - (_end - i)  ); // Print order index
-//		}
-//	}	
-//	
-//	public int FindMaximumWord ()
-//	{
-//		maxWordCount = 0; // Reset count
-//		
-//		// Word Counter
-//		int wordCounter = 0;
-//		int index = 0;
-//		String lastWord = "";
-//		Dictionary wordList = new Dictionary();
-//		for (int i = 0; i < list.size(); i++)
-//		{
-//			BNode dict = list.get(i);
-//			
-//			if (dict.compareTo(new BNode(lastWord)) == 0) // Same last word count incease
-//			{
-//				wordList.Add(dict);
-//				wordCounter++;
-//			}
-//			else // Found new wrod
-//			{
-//				// If last word is more than maximum word then set it to maximum word
-//				if (wordCounter > maxWordCount)
-//				{
-//					indexMaxWord = index;
-//					maxWordCount = wordCounter;
-//					maxWordList.Copy(wordList);
-//				}
-//				
-//				// Count new word
-//				index = i;
-//				wordCounter = 1;
-//				wordList.list.clear();
-//			}
-//			lastWord = dict.word; // Set last word
-//		}
-//		return indexMaxWord;
-//	}
-//	
-//	public void RemoveDuplicate ()
-//	{
-//		maxWordCount = 0; // Reset max duplicate count
-//		maxWordList = new Dictionary(); // Reset list
-//		
-//		// Max word counter
-//		int dCount = 0;
-//		
-//		for (int i = list.size() - 1; i >= 0; i--) {			
-//			BNode word = list.get(i);
-//			// Check word, meaning and type if match then remove
-////			for (int j = i - 1; j >= 0 && word.compareAll(list.get(j)) == true; j--) 
-////			{				
-////				list.remove(j); // Remove duplicate word
-////				duplicateCount++; // Add removed duplicate count
-////			}
-//		}
-//		
-//		if (dCount > maxWordCount) maxWordCount = dCount;
-//	}
-//	
-//	public void PrintMaxWordList ()
-//	{
-//		if (maxWordList.list.size() <= 0) return;
-//		// Print list of max duplicate word
-//		for (int i = 0; i < maxWordList.list.size(); i++) {
-//			maxWordList.list.get(i).Print(i + 1);
-//		}
-//	}
-//	
-//	// Print all data in dictionary
-//	public void Print ()
-//	{
-//		for (int i = 0; i < list.size(); i++)
-//		{
-//			BNode dict = list.get(i);
-//			dict.Print(i);
-//		}
-//	}
-//	
-//	public void Copy (Dictionary source)
-//	{
-//		list.clear();
-//		for (int i = 0; i < source.list.size(); i++) 
-//		{
-//			list.add(source.list.get(i));
-//		}
-//	}
+	public void Add (String input)
+	{
+		BNode node = new BNode(input);
+		if (list.contains(node))
+		{
+			TreeSet<BNode> data = (TreeSet<BNode>) list.subSet(node, true, node, true);
+			if (!data.first().meaning.contains(node.meaning.get(0)))
+				data.first().meaning.addAll(node.meaning);
+		}
+		else
+		{
+			list.add(node);
+		}
+	}
 
+	public void SearchAndPrintWord (String _word)
+	{
+		BNode key = new BNode(_word);
+		// Search
+		
+		if (list.contains(key))
+		{
+			TreeSet<BNode> node = (TreeSet<BNode>)list.subSet(key, true, key, true);
+			System.out.println("found " + _word);
+			Print(node);
+		}
+		else
+		{
+			System.out.println(_word + " not found");
+		}
+	}
+	
+	public BNode FindMaximumWord ()
+	{
+		BNode node = list.first();
+		for (BNode item : list)
+		{
+			if (item.meaning.size() > node.meaning.size())
+				node = item;
+		}
+		return node;
+	}
+	
+	// Print dict from start index to end int
+	public void Print ()
+	{
+		for (BNode item : list)
+		{
+			item.Print();
+		}
+	}
+	
+	public void Print (TreeSet<BNode> _list)
+	{
+		for (BNode item : _list)
+		{
+			item.Print();
+		}
+	}
+	
 }
