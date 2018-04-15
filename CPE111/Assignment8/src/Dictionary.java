@@ -15,6 +15,7 @@ public class Dictionary {
 	// Use for collect list of max duplicate word
 	public TreeSet<BNode> duplicate = new TreeSet<BNode>();
 	
+	// Function add word
 	public void Add (String input)
 	{
 		BNode node = new BNode(input);
@@ -30,12 +31,13 @@ public class Dictionary {
 		}
 	}
 
+	// Function search and print word
 	public void SearchAndPrintWord (String _word)
 	{
 		BNode key = new BNode(_word);
 		// Search
 		
-		if (list.contains(key))
+		if (list.contains(key)) // Found word in dictionary
 		{
 			TreeSet<BNode> node = (TreeSet<BNode>)list.subSet(key, true, key, true);
 			System.out.println("found " + _word);
@@ -47,11 +49,13 @@ public class Dictionary {
 		}
 	}
 	
+	// Find maximum word
 	public BNode FindMaximumWord ()
 	{
 		BNode node = list.first();
 		for (BNode item : list)
 		{
+			// Repalce old maximum word with new word
 			if (item.meaning.size() > node.meaning.size())
 				node = item;
 		}
@@ -66,7 +70,7 @@ public class Dictionary {
 			item.Print();
 		}
 	}
-	
+
 	public void Print (TreeSet<BNode> _list)
 	{
 		for (BNode item : _list)

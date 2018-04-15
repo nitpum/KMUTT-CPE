@@ -9,31 +9,24 @@ public class main {
 	static int readCount = 0;
 	
 	public static void main(String[] args) {
+		// Create new dictionary
 		dictionary = new Dictionary();
 		
 		// Read file
 		ReadFile("utf8lexitron.csv");
-//		
-//		// Sort
-//		dictionary.Sort();
+		// Print count
 		System.out.println("Total Read: " + readCount);
 		System.out.println("TreeSet total: " + dictionary.list.size());
-//		dictionary.Print();
-//		// Remove duplicate
-//		dictionary.RemoveDuplicate();
-//		System.out.println("Duplicate: " + dictionary.duplicateCount);
-//		System.out.println("Remaining: " + dictionary.list.size());
-//		// Find maximum word
+		// Find and print maximum word
 		BNode maxMeaning = dictionary.FindMaximumWord();
 		System.out.println("Maximumn meaning word " + maxMeaning.word + " have " + maxMeaning.meaning.size() + " meaning.");
 		maxMeaning.Print();
-//		dictionary.PrintMaxWordList();
 		
 		// Scanner
 		Scanner sc = new Scanner(System.in);
 		
 		String input;
-		boolean endProgram = false;
+		boolean endProgram = false; // end command
 		boolean command;
 		do
 		{
@@ -45,20 +38,16 @@ public class main {
 			endProgram = (input.trim().compareToIgnoreCase("/end") == 0)? true : false;
 			if (!endProgram || !command)
 			{
-//				// Set start and end index to null
-				int start[] = {-1};
-				int end [] = {-1};
-				// Search
-				
+				// Search and print word
 				dictionary.SearchAndPrintWord(input); // Search 
 			}
-		} while (endProgram == false);
+		} while (endProgram == false); // Check end command 
 		sc.close();
-		System.out.println("End Program");
-		
-		
+		// End program
+		System.out.println("End Program");		
 	}
 	
+	// Function readfile
 	public static void ReadFile (String filePath)
 	{
 		FileInputStream in = null;
@@ -76,9 +65,12 @@ public class main {
 		
 		if (in != null && fr != null) {
 			Scanner sc = new Scanner(fr);
+			// Each line
 			while (sc.hasNext()) {
+				// Add word to dictionary
+				// Before add word trim and remove buffer
 				dictionary.Add(sc.nextLine().trim().replace("\uFEFF","").replaceAll("\\s+", " "));
-				readCount++;
+				readCount++; // Count word
 			}
 			sc.close();
 		}

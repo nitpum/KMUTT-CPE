@@ -9,39 +9,33 @@ public class BNode implements Comparable<BNode> {
 	{
 		word = input.trim().replaceAll("\\s+", " ");
 		String[] split = input.trim().split(",");
-		if (split.length <= 1) // Construct only word
+		// Check input
+		if (split.length <= 1) // Input contain only word
 		{
 			word = input.trim();
 			word = word.replaceAll("\\s+"," ");
 		}
-		else
+		else // Split word and meaning
 		{
 			word = split[0].trim();
 			meaning.add("(" + split[2].trim() + ")" + split[1].trim());
 		}
 	}
 	
+	// Add meaning
 	public void add (String _meaning)
 	{
 		meaning.add(_meaning);
 	}
 	
+	// Compare ignore case, trim and remove undesired space
 	@Override
 	public int compareTo (BNode target)
 	{
 		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(target.word.trim().replaceAll("\\s+", " "));
 	}
 	
-//	public boolean compareAll (BNode a)
-//	{
-//		if (	word.trim().replaceAll("\\s+", " ").equalsIgnoreCase(a.word.trim().replaceAll("\\s+", " ")) 
-//				&& meaning.equalsIgnoreCase(a.meaning) 
-//				&& type.equalsIgnoreCase(a.type)
-//			)
-//			return true;
-//		return false;
-//	}
-	
+	// Print word
 	public void Print ()
 	{
 		for (int i = 0; i < meaning.size(); i++)
