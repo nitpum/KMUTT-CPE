@@ -8,12 +8,12 @@ public class DNode implements Comparable<DNode> {
 	public DNode (String input)
 	{
 		String[] split = input.trim().split(",");
-		if (split.length <= 1) // Construct only word
+		if (split.length <= 1) // Input contain only word
 		{
 			word = input.trim();
 			word = word.replaceAll("\\s+"," ");
 		}
-		else
+		else // Input contain word, meaning and type
 		{
 			word = split[0].trim();
 			meaning = split[1].trim();
@@ -21,12 +21,14 @@ public class DNode implements Comparable<DNode> {
 		}
 	}	
 	
+	// Compare word with ignore case, tirm and remove space
 	@Override
 	public int compareTo (DNode target)
 	{
 		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(target.word.trim().replaceAll("\\s+", " "));
 	}
 	
+	// Compare word, meaing and type with ignore case, trim and remove space
 	public boolean compareAll (DNode a)
 	{
 		if (	word.trim().replaceAll("\\s+", " ").equalsIgnoreCase(a.word.trim().replaceAll("\\s+", " ")) 
@@ -37,11 +39,13 @@ public class DNode implements Comparable<DNode> {
 		return false;
 	}
 	
+	// Print word
 	public void Print ()
 	{
 		System.out.println(word + "	" + meaning + "(" + type + ")");
 	}
 	
+	// Print word with index
 	public void Print (int index)
 	{
 		System.out.format("%2d) %-20s %-20s\n", index, word, meaning + "(" + type +")");

@@ -45,7 +45,7 @@ public class Assignment7 {
 				int end [] = {-1};
 				// Search
 				dictionary.SearchWord(input, start, end);
-				if (start[0] >= 0) // Found 
+				if (start[0] >= 0) // Found word
 				{
 					System.out.println("found " + dictionary.list.get(start[0]).word + " " + (end[0] - start[0] + 1) +  " word at " + start[0] + " - " + end[0]);
 					dictionary.Print(start[0], end[0]);
@@ -58,8 +58,6 @@ public class Assignment7 {
 		} while (endProgram == false);
 		sc.close();
 		System.out.println("End Program");
-		
-		
 	}
 	
 	public static void ReadFile (String filePath)
@@ -78,7 +76,9 @@ public class Assignment7 {
 		}
 		if (in != null && fr != null) {
 			Scanner sc = new Scanner(fr);
+			// Read each line
 			while (sc.hasNext()) {
+				// Trim, remove uFEFF and remove space each line before add to dictionary
 				dictionary.Add(new DNode(sc.nextLine().trim().replace("\uFEFF","").replaceAll("\\s+", " ")));
 			}
 			sc.close();

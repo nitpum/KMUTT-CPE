@@ -14,21 +14,25 @@ public class Dictionary {
 	// Use for collect list of max duplicate word
 	public Dictionary maxWordList;
 	
+	// Get word from dictionary using index
 	public DNode Get (int index)
 	{
 		return list.get(index);
 	}
 	
+	// Add word to dictionary
 	public void Add (DNode node)
 	{
 		list.add(node);
 	}
 	
+	// Sort function
 	public void Sort ()
 	{
 		Collections.sort(list);
 	}
 	
+	// Function search word and return start index and end index
 	public void SearchWord (String _word, int[] _start, int[] _end)
 	{
 		DNode key = new DNode(_word);
@@ -52,9 +56,10 @@ public class Dictionary {
 			_start[0] = index; // start index
 			_end[0] = endIndex; // end index
 		}
-		else
+		else // Not found 
 		{
-			_start[0] = -1;
+			// Set index to -1 for tell it's not found
+			_start[0] = -1; 
 			_end[0] = -1;
 		}
 		
@@ -86,19 +91,20 @@ public class Dictionary {
 		int wordCounter = 0;
 		int index = 0;
 		String lastWord = "";
-		Dictionary wordList = new Dictionary();
+		Dictionary wordList = new Dictionary(); // list for save duplicate words
+		// Loop in dictionary
 		for (int i = 0; i < list.size(); i++)
 		{
 			DNode dict = list.get(i);
-			
-			if (dict.compareTo(new DNode(lastWord)) == 0) // Same last word count incease
+			// Compare to previous word
+			if (dict.compareTo(new DNode(lastWord)) == 0) // Same previous word incease counter
 			{
-				wordList.Add(dict);
+				wordList.Add(dict); // Save word to list
 				wordCounter++;
 			}
 			else // Found new wrod
 			{
-				// If last word is more than maximum word then set it to maximum word
+				// If previous word is more than current maximum word then set it to maximum word
 				if (wordCounter > maxWordCount)
 				{
 					indexMaxWord = index;
@@ -116,6 +122,7 @@ public class Dictionary {
 		return indexMaxWord;
 	}
 	
+	// Remvoe duplicate word function
 	public void RemoveDuplicate ()
 	{
 		maxWordCount = 0; // Reset max duplicate count
@@ -123,7 +130,7 @@ public class Dictionary {
 		
 		// Max word counter
 		int dCount = 0;
-		
+		// Loop diction list
 		for (int i = list.size() - 1; i >= 0; i--) {			
 			DNode word = list.get(i);
 			// Check word, meaning and type if match then remove
@@ -133,10 +140,11 @@ public class Dictionary {
 				duplicateCount++; // Add removed duplicate count
 			}
 		}
-		
+		// If deleted count more than max word count then remember it to max duplicate word count
 		if (dCount > maxWordCount) maxWordCount = dCount;
 	}
 	
+	// Print duplicate words
 	public void PrintMaxWordList ()
 	{
 		if (maxWordList.list.size() <= 0) return;
@@ -156,6 +164,7 @@ public class Dictionary {
 		}
 	}
 	
+	// Copy dictionary to this dictionary
 	public void Copy (Dictionary source)
 	{
 		list.clear();
