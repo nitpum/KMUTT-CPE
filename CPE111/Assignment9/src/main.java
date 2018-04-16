@@ -16,7 +16,7 @@ public class main {
 		ReadFile("utf8lexitron.csv");
 		// Print count
 		System.out.println("Total Read: " + readCount);
-		System.out.println("TreeSet total: " + dictionary.list.size());
+		System.out.println("Collections total: " + dictionary.list.size());
 		// Find and print maximum word
 		BNode maxMeaning = dictionary.FindMaximumWord();
 		System.out.println("Maximumn meaning word " + maxMeaning.word + " have " + maxMeaning.meaning.size() + " meaning.");
@@ -27,16 +27,14 @@ public class main {
 		
 		String input;
 		boolean endProgram = false; // end command
-		boolean command;
 		do
 		{
-			command = false;
 			// Recieve input
 			System.out.print("Enter word: ");
 			input = sc.nextLine();
 			// Check input is not end program command
 			endProgram = (input.trim().compareToIgnoreCase("/end") == 0)? true : false;
-			if (!endProgram || !command)
+			if (!endProgram)
 			{
 				// Search and print word
 				dictionary.SearchAndPrintWord(input); // Search 
@@ -44,7 +42,8 @@ public class main {
 		} while (endProgram == false); // Check end command 
 		sc.close();
 		// End program
-		System.out.println("End Program");		
+		System.out.println("End Program");
+		System.out.println("Program by Nitipoom Unrrom 60070501029");
 	}
 	
 	// Function readfile

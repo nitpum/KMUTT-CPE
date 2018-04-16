@@ -1,10 +1,9 @@
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.TreeSet;
+import java.util.HashMap;
 
 public class Dictionary {
 	
-	public TreeSet<BNode> list = new TreeSet<BNode>();
+	public HashMap<String, BNode> list = new HashMap<String, BNode>();
 	
 	public int duplicateCount = 0; // Removed duplicate count
 
@@ -13,35 +12,34 @@ public class Dictionary {
 	public int maxWordCount = 0;
 	
 	// Use for collect list of max duplicate word
-	public TreeSet<BNode> duplicate = new TreeSet<BNode>();
+	public HashMap<String, BNode> duplicate = new HashMap<String, BNode>();
 	
 	// Function add word
 	public void Add (String input)
 	{
 		BNode node = new BNode(input);
-		if (list.contains(node))
+		if (list.containsKey(node.word))
 		{
-			TreeSet<BNode> data = (TreeSet<BNode>) list.subSet(node, true, node, true);
-			if (!data.first().meaning.contains(node.meaning.get(0)))
-				data.first().meaning.addAll(node.meaning);
+			BNode existsNode = list.get(node.word);
+			existsNode.add(node.meaning);
 		}
 		else
 		{
-			list.add(node);
+			// Use word as key
+			list.put(node.word, node);
 		}
 	}
 
 	// Function search and print word
 	public void SearchAndPrintWord (String _word)
 	{
-		BNode key = new BNode(_word);
-		// Search
+		BNode key = new BNode(_word.toLowerCase());
 		
-		if (list.contains(key)) // Found word in dictionary
+		// Search
+		if (list.containsKey(key.word)) // Found word in dictionary
 		{
-			TreeSet<BNode> node = (TreeSet<BNode>)list.subSet(key, true, key, true);
-			System.out.println("found " + _word);
-			Print(node);
+			// Loop find word
+			Print(list.get(key.word));
 		}
 		else
 		{
@@ -52,9 +50,14 @@ public class Dictionary {
 	// Find maximum word
 	public BNode FindMaximumWord ()
 	{
-		BNode node = list.first();
-		for (BNode item : list)
+		BNode node = new BNode("");
+		for (String key : list.keySet())
 		{
+			BNode item = list.get(key);
+			
+			// Set first max node
+			if (node.word == "") node = item; 
+				
 			// Repalce old maximum word with new word
 			if (item.meaning.size() > node.meaning.size())
 				node = item;
@@ -63,20 +66,17 @@ public class Dictionary {
 	}
 	
 	// Print dict from start index to end int
-	public void Print ()
-	{
-		for (BNode item : list)
-		{
-			item.Print();
-		}
-	}
+//	public void Print ()
+//	{
+//		for (BNode item : list)
+//		{
+//			item.Print();
+//		}
+//	}
 
-	public void Print (TreeSet<BNode> _list)
+	public void Print (BNode node)
 	{
-		for (BNode item : _list)
-		{
-			item.Print();
-		}
+		node.Print();
 	}
 	
 }
