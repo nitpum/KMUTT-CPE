@@ -15,18 +15,23 @@ public class Dictionary {
 	// Use for collect list of max duplicate word
 	public TreeSet<BNode> duplicate = new TreeSet<BNode>();
 	
-	// Function add word
+	// Function add word to dictionary
 	public void Add (String input)
 	{
 		BNode node = new BNode(input);
+		// Check word is exists in dictionary
 		if (list.contains(node))
 		{
+			// Grab node from dictionary
 			TreeSet<BNode> data = (TreeSet<BNode>) list.subSet(node, true, node, true);
+			// Add new meaning to the ndoe
 			if (!data.first().meaning.contains(node.meaning.get(0)))
 				data.first().meaning.addAll(node.meaning);
 		}
 		else
 		{
+			// Dictionary don't contain the word
+			// Add word to dictionary
 			list.add(node);
 		}
 	}
@@ -35,16 +40,18 @@ public class Dictionary {
 	public void SearchAndPrintWord (String _word)
 	{
 		BNode key = new BNode(_word);
-		// Search
-		
+
+		// Check key is HashMap
 		if (list.contains(key)) // Found word in dictionary
 		{
+			// Grab the node from dictionary
 			TreeSet<BNode> node = (TreeSet<BNode>)list.subSet(key, true, key, true);
 			System.out.println("found " + _word);
-			Print(node);
+			Print(node); // Print the node
 		}
 		else
 		{
+			// Word not found
 			System.out.println(_word + " not found");
 		}
 	}
@@ -52,12 +59,13 @@ public class Dictionary {
 	// Find maximum word
 	public BNode FindMaximumWord ()
 	{
+		// Set first to be maximum word
 		BNode node = list.first();
 		for (BNode item : list)
 		{
-			// Repalce old maximum word with new word
+			// Check if next node's meaning count is more than current maxiumn's meaning count
 			if (item.meaning.size() > node.meaning.size())
-				node = item;
+				node = item;// Repalce old maximum word with new word
 		}
 		return node;
 	}
@@ -71,6 +79,7 @@ public class Dictionary {
 		}
 	}
 
+	// Print BNode from list
 	public void Print (TreeSet<BNode> _list)
 	{
 		for (BNode item : _list)

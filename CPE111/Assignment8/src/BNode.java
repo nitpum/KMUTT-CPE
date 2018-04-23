@@ -12,13 +12,15 @@ public class BNode implements Comparable<BNode> {
 		// Check input
 		if (split.length <= 1) // Input contain only word
 		{
+			// Remove space
 			word = input.trim();
 			word = word.replaceAll("\\s+"," ");
 		}
 		else // Split word and meaning
 		{
+			// Remove space
 			word = split[0].trim();
-			meaning.add("(" + split[2].trim() + ")" + split[1].trim());
+			meaning.add("(" + split[2].trim() + ")" + split[1].trim()); // Combined type and meaning string
 		}
 	}
 	
@@ -35,12 +37,12 @@ public class BNode implements Comparable<BNode> {
 		return (int) word.trim().replaceAll("\\s+", " ").compareToIgnoreCase(target.word.trim().replaceAll("\\s+", " "));
 	}
 	
-	// Print word
+	// Print node
 	public void Print ()
 	{
 		for (int i = 0; i < meaning.size(); i++)
 		{
-			if (i == 0)
+			if (i == 0) // Show the word only at first item of list
 				System.out.format("%-20s %-2s %-20s\n", word, i + 1, meaning.get(i));
 			else 
 				System.out.format("%-20s %-2s %-20s\n", "", i + 1, meaning.get(i));
