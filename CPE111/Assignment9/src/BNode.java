@@ -7,28 +7,30 @@ public class BNode implements Comparable<BNode> {
 	
 	public BNode (String input)
 	{
-//		word = input.trim().replaceAll("\\s+", " ");
-		String[] split = input.trim().split(",");
+		String[] split = input.toLowerCase().trim().split(",");
 		// Check input
 		if (split.length <= 1) // Input contain only word
 		{
+			// Remove space
 			word = input.trim().replaceAll("\\s+"," ");
 		}
-		else // Split word and meaning
+		else // Split word, type and meaning
 		{
+			// Remove space
 			word = split[0].trim().replaceAll("\\s+"," ");
-			meaning.add("(" + split[2].trim() + ")" + split[1].trim());
+			meaning.add("(" + split[2].trim() + ")" + split[1].trim()); // Combined type and meaing string
 		}
 	}
 	
-	// Add meaning
+	// Add new meaning
 	public void add (String _meaning)
 	{
-		if(!meaning.contains(_meaning)) // Not add duplicate meaning
+		 // Add only new meaning
+		if(!meaning.contains(_meaning))
 			meaning.add(_meaning);
 	}
 	
-	// Add meaning from list
+	// Add meaning from the list to Bnode's meaning list
 	public void add (ArrayList<String> list)
 	{
 		for (String _meaning : list)
@@ -49,7 +51,7 @@ public class BNode implements Comparable<BNode> {
 	{
 		for (int i = 0; i < meaning.size(); i++)
 		{
-			if (i == 0)
+			if (i == 0) // Only show the word at first index
 				System.out.format("%-20s %-2s %-20s\n", word, i + 1, meaning.get(i));
 			else 
 				System.out.format("%-20s %-2s %-20s\n", "", i + 1, meaning.get(i));

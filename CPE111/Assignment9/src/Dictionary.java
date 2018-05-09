@@ -18,14 +18,19 @@ public class Dictionary {
 	public void Add (String input)
 	{
 		BNode node = new BNode(input);
-		if (list.containsKey(node.word))
+		// Check 
+		if (list.containsKey(node.word.toLowerCase()))
 		{
+			// HashMap contain the key
+			// Grab the node and add meaning
 			BNode existsNode = list.get(node.word);
 			existsNode.add(node.meaning);
 		}
-		else
+		else 
 		{
+			// HashMap not contain the key
 			// Use word as key
+			// Then add node to HashMap
 			list.put(node.word, node);
 		}
 	}
@@ -35,14 +40,16 @@ public class Dictionary {
 	{
 		BNode key = new BNode(_word.toLowerCase());
 		
-		// Search
-		if (list.containsKey(key.word)) // Found word in dictionary
+		// Check word as key in HashMap
+		if (list.containsKey(key.word)) 
 		{
-			// Loop find word
+			// Found word in dictionary
+			// Grab the word node and then print it
 			Print(list.get(key.word));
 		}
 		else
 		{
+			// Not found
 			System.out.println(_word + " not found");
 		}
 	}
@@ -50,12 +57,13 @@ public class Dictionary {
 	// Find maximum word
 	public BNode FindMaximumWord ()
 	{
+		// Define empty node to be max node
 		BNode node = new BNode("");
 		for (String key : list.keySet())
 		{
 			BNode item = list.get(key);
 			
-			// Set first max node
+			// If max node is empty set the node to be max node 
 			if (node.word == "") node = item; 
 				
 			// Repalce old maximum word with new word
@@ -65,15 +73,7 @@ public class Dictionary {
 		return node;
 	}
 	
-	// Print dict from start index to end int
-//	public void Print ()
-//	{
-//		for (BNode item : list)
-//		{
-//			item.Print();
-//		}
-//	}
-
+	// Print node
 	public void Print (BNode node)
 	{
 		node.Print();
