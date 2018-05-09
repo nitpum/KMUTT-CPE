@@ -20,7 +20,8 @@ public class BNode implements Comparable<BNode> {
 		{
 			// Remove space
 			word = split[0].trim();
-			meaning.add("(" + split[2].trim() + ")" + split[1].trim()); // Combined type and meaning string
+			// Combined type and meaning string
+			meaning.add("(" + split[2].trim() + ")" + split[1].trim()); 
 		}
 	}
 	
