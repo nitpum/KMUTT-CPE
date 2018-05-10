@@ -17,7 +17,9 @@ public class Main {
 	public static void main(String[] args) {
 
 		CreateEdgeSet(graph, edgeSet);
-		PrintEdgeSet(edgeSet);
+//		PrintEdgeSet(edgeSet);
+		Kruskal kruskal = new Kruskal(graph, edgeSet);
+		PrintTree(kruskal.tree);
 	}
 	
 	public static void CreateEdgeSet (int graph[][], PriorityQueue<Edge> edgeSet)	{
@@ -31,21 +33,7 @@ public class Main {
 		}
 	}
 	
-	public static void Kruskal (PriorityQueue<Edge> edgeSet) {
-		ArrayList<Edge> tree = new ArrayList<Edge>();
-		Edge edge;
-		while ((edge = edgeSet.poll()) != null) {
-			boolean added = false;
-			for (int i = 0; i < tree.size(); i++) {
-				if (edge.sameNode(tree.get(i))) {
-					added = true;
-				}
-			}
-			if (added == false)
-				tree.add(edge);
-		}
-		
-	}
+	
 	
 	public static boolean Warshall (int graph[][], ArrayList<Edge> tree) {
 		
@@ -65,6 +53,29 @@ public class Main {
 	public static boolean Traversal () {
 		
 		return false;
+	}
+	
+	public static String GetNodeName (int node) {
+		if (node == 0)
+			return "A";
+		else if (node == 1)
+			return "B";
+		else if (node == 2)
+			return "C";
+		else if (node == 3)
+			return "D";
+		else if (node == 4)
+			return "E";
+		else if (node == 5)
+			return "F";
+		return "G";
+	}
+	
+	public static void PrintTree (ArrayList<Edge> tree) {
+		for (int i = 0; i < tree.size(); i++) {
+			Edge edge = tree.get(i);
+			System.out.println(GetNodeName(edge.node1) + GetNodeName(edge.node2) + " : " + edge.weight);
+		}
 	}
 	
 	public static void PrintEdgeSet (PriorityQueue<Edge> edgeset) {
