@@ -15,14 +15,9 @@ public class Edge implements Comparable {
 		return this.weight - ((Edge)target).weight;
 	}
 	
+	// Check between this edge and the other edge is same edge
 	public boolean sameEdge (Edge target) {
 		if ((node1 == target.node1 && node2 == target.node2) || (node1 == target.node2 && node2 == target.node1))
-			return true;
-		return false;
-	}
-	
-	public boolean sameNode (Edge target) {
-		if (node1 == target.node1 || node1 == target.node2 || node2 == target.node1 || node2 == target.node2)
 			return true;
 		return false;
 	}

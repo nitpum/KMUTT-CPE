@@ -5,53 +5,60 @@ import java.util.PriorityQueue;
 public class Kruskal {
 	
 	ArrayList<Edge> tree = new ArrayList<Edge>();
-	static PriorityQueue<Edge> edgeSet = new PriorityQueue<Edge>();
 	HashMap<Integer, Integer> rootMap = new HashMap<Integer, Integer>();
 	HashMap<Integer, Integer> childCount = new HashMap<Integer, Integer>();
 	
-	public Kruskal (int graph[][], PriorityQueue<Edge> edgeSet) {		
-		this.edgeSet = edgeSet; 
+	public Kruskal (int graph[][], PriorityQueue<Edge> edgeSet) {
+		
 		// Initialized root map
 		for (int i = 0; i < graph.length; i++) {
 			rootMap.put(new Integer(i), new Integer(i));
 			childCount.put(new Integer(i), new Integer(0));
 		}
+		// Get edge from edge set
+		// And then check if edge in tree not add edge to edge
 		Edge edge;
-		while ((edge = this.edgeSet.poll()) != null) {
+		while ((edge = edgeSet.poll()) != null) {
 			boolean added = false;
+			// Check tree contain edge or not
 			for (int i = 0; i < tree.size(); i++) {
-				if (edge.sameEdge(tree.get(i))) {
-					added = true;
-				}
+				if (edge.sameEdge(tree.get(i)))
+					added = true; // Tree contain this edge
 			}
+			// Tree not contain the edge then add it to tree
 			if (added == false)
-				AddToTree(tree, edge);
+				addEdgeTree(tree, edge);
 		}
 	}
 	
-	public void AddToTree (ArrayList<Edge> tree, Edge edge) {
-		if (findRoot(edge.node1) == findRoot(edge.node2))
+	// Check edge before add to tree
+	public void addEdgeTree (ArrayList<Edge> tree, Edge edge) {
+		// Check node1 root and node2 root
+		// If they are same edge it mean graph will loop
+		if (getRoot(edge.node1) == getRoot(edge.node2))
 			return;
-		else if (findRoot(edge.node1) > findRoot(edge.node2))
-			SetRoot(edge.node1, edge.node2);
+		else if (getRoot(edge.node1) > getRoot(edge.node2))
+			setRoot(edge.node1, edge.node2);
 		else 
-			SetRoot(edge.node2, edge.node1);
+			setRoot(edge.node2, edge.node1);
 		tree.add(edge);
 	}
 	
-	public void SetRoot (int root, int target) {
+	// Set new root to target node and update child count
+	public void setRoot (int root, int target) {
+		// Update new root to target
 		rootMap.put(new Integer(target), new Integer(root));
+		// Update root node child count and add target node child count to the count
 		childCount.put(new Integer(root), childCount.get(new Integer(root)) + 1 + childCount.get(new Integer(target)));
 	}
 	
-	public ArrayList<Edge> getTree () {
-		return tree;
-	}
-	
-	public int findRoot (int node) {
+	// Get node's root from root map
+	public int getRoot (int node) {
+		// itself is root
 		if (rootMap.get(new Integer(node)) == node)
 			return node;
-		return findRoot(rootMap.get(new Integer(node)));
+		// root is the other node
+		return getRoot(rootMap.get(new Integer(node)));
 	}
 	
 }
