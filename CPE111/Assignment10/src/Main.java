@@ -33,21 +33,9 @@ public class Main {
 		}
 	}
 	
-	// Get node name
+	// Get node name by ASIIC
 	public static String GetNodeName (int node) {
-		if (node == 0)
-			return "A";
-		else if (node == 1)
-			return "B";
-		else if (node == 2)
-			return "C";
-		else if (node == 3)
-			return "D";
-		else if (node == 4)
-			return "E";
-		else if (node == 5)
-			return "F";
-		return "G";
+		return String.format("%c", node + 'a');
 	}
 	
 	// Print edge tree and weight

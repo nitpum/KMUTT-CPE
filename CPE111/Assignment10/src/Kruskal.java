@@ -10,10 +10,10 @@ public class Kruskal {
 	
 	public Kruskal (int graph[][], PriorityQueue<Edge> edgeSet) {
 		
-		// Initialized root map
+		// Initialized root map and child count
 		for (int i = 0; i < graph.length; i++) {
-			rootMap.put(new Integer(i), new Integer(i));
-			childCount.put(new Integer(i), new Integer(0));
+			rootMap.put(new Integer(i), new Integer(i)); // value is same as key
+			childCount.put(new Integer(i), new Integer(0)); // value is 0
 		}
 		// Get edge from edge set
 		// And then check if edge in tree not add edge to edge
@@ -33,14 +33,16 @@ public class Kruskal {
 	
 	// Check edge before add to tree
 	public void addEdgeTree (ArrayList<Edge> tree, Edge edge) {
+		// Before add to tree check their root
 		// Check node1 root and node2 root
 		// If they are same edge it mean graph will loop
 		if (getRoot(edge.node1) == getRoot(edge.node2))
-			return;
+			return; // Cancel this function
 		else if (getRoot(edge.node1) > getRoot(edge.node2))
 			setRoot(edge.node1, edge.node2);
 		else 
 			setRoot(edge.node2, edge.node1);
+		// Add edge to tree
 		tree.add(edge);
 	}
 	
@@ -48,16 +50,17 @@ public class Kruskal {
 	public void setRoot (int root, int target) {
 		// Update new root to target
 		rootMap.put(new Integer(target), new Integer(root));
-		// Update root node child count and add target node child count to the count
+		// Update child count of root node and add child count of target node to root node
 		childCount.put(new Integer(root), childCount.get(new Integer(root)) + 1 + childCount.get(new Integer(target)));
 	}
 	
 	// Get node's root from root map
 	public int getRoot (int node) {
-		// itself is root
+		// root is node itself
 		if (rootMap.get(new Integer(node)) == node)
 			return node;
-		// root is the other node
+		// root is the other node 
+		// Get node root from root map then use in getRoot function
 		return getRoot(rootMap.get(new Integer(node)));
 	}
 	
