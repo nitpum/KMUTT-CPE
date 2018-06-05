@@ -16,8 +16,10 @@ public class Main {
 
 	public static void main(String[] args) {
 		createEdgeSet(graph, edgeSet);
+		// Create kruskal instance
 		Kruskal kruskal = new Kruskal(graph, edgeSet);
-		System.out.println("Kruskal");
+		// Print kruskal result
+		System.out.println("Kruskal: ");
 		printTree(kruskal.tree);
 	}
 	
@@ -51,6 +53,5 @@ public class Main {
 			System.out.println(e.node1 + " > " + e.node2 + " : " + e.weight);
 		}
 	}
-
 
 }

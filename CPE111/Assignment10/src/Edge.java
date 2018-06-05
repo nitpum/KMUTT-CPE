@@ -1,5 +1,5 @@
 
-public class Edge implements Comparable {
+public class Edge implements Comparable<Edge> {
 
 	public int node1, node2;
 	public int weight;
@@ -10,8 +10,9 @@ public class Edge implements Comparable {
 		this.weight = weight;
 	}
 
+	// Compare weight
 	@Override
-	public int compareTo(Object target) {
+	public int compareTo(Edge target) {
 		return this.weight - ((Edge)target).weight;
 	}
 	
