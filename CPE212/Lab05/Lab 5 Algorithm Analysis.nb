@@ -1,0 +1,729 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     31308,        720]
+NotebookOptionsPosition[     29423,        654]
+NotebookOutlinePosition[     29847,        670]
+CellTagsIndexPosition[     29804,        667]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["CPE 212 Algorithm Design (1/61)",
+ FontWeight->"Bold"]], "Title",
+ CellChangeTimes->{{3.7462580394183173`*^9, 3.7462580551275244`*^9}}],
+
+Cell["Lab V: Algorithm Analysis", "Subtitle",
+ CellChangeTimes->{{3.746258063672176*^9, 3.746258074370348*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"swap", "[", 
+    RowBox[{"list_", ",", " ", "a_", ",", " ", "b_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l", ",", " ", "x"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"l", " ", "=", " ", "list"}], ";", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"l", "\[LeftDoubleBracket]", "a", "\[RightDoubleBracket]"}], 
+       " ", "=", " ", 
+       RowBox[{
+       "list", "\[LeftDoubleBracket]", "b", "\[RightDoubleBracket]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"l", "\[LeftDoubleBracket]", "b", "\[RightDoubleBracket]"}], 
+       " ", "=", " ", 
+       RowBox[{
+       "list", "\[LeftDoubleBracket]", "a", "\[RightDoubleBracket]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "l", "]"}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.747133179573562*^9, 3.7471331818015223`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Lomuto", "Section",
+ CellChangeTimes->{{3.746258100070856*^9, 3.7462581009143686`*^9}, {
+  3.747139378370425*^9, 3.7471393786254225`*^9}}],
+
+Cell[TextData[{
+ "1. Implement the ",
+ StyleBox["LamutoPartition", "Code",
+  FontSlant->"Italic"],
+ StyleBox["[ A[l...r] ]", "Code"],
+ " and ",
+ StyleBox["QuickSelect[A[l...r], k] ", "Code"],
+ "algorithm for finding the ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    SuperscriptBox["k", "th"], " ", "smallest", " ", "element"}], 
+   TraditionalForm]],
+  FormatType->"TraditionalForm"]
+}], "Text",
+ CellChangeTimes->{{3.746258113976735*^9, 3.7462581541144447`*^9}, {
+  3.746258562449689*^9, 3.74625878542698*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"LomutoPartition", "[", 
+    RowBox[{"list_", ",", " ", "start_", ",", " ", "end_"}], "]"}], " ", ":=",
+    " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l", ",", " ", "s"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"l", " ", "=", "list"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"s", " ", "=", " ", "start"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", " ", "=", 
+         RowBox[{"start", " ", "+", " ", "1"}]}], ",", " ", 
+        RowBox[{"i", " ", "<=", " ", "end"}], ",", " ", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+            "l", "\[LeftDoubleBracket]", "i", "\[RightDoubleBracket]"}], " ", 
+            "<", " ", 
+            RowBox[{
+            "l", "\[LeftDoubleBracket]", "start", "\[RightDoubleBracket]"}]}],
+            ",", 
+           RowBox[{
+            RowBox[{"s", "++"}], ";", " ", 
+            RowBox[{"l", " ", "=", 
+             RowBox[{"swap", "[", 
+              RowBox[{"l", ",", " ", "s", ",", " ", "i"}], "]"}]}], ";"}]}], 
+          "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"l", " ", "=", 
+       RowBox[{"swap", "[", 
+        RowBox[{"l", ",", " ", "start", ",", " ", "s"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", 
+       RowBox[{"{", 
+        RowBox[{"l", ",", "s"}], "}"}], "]"}], ";"}]}], "\[IndentingNewLine]",
+     "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.746258814349264*^9, 3.7462588200432005`*^9}, 
+   3.7471331885398116`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"QuickSelect", "[", 
+     RowBox[{
+     "list_", ",", " ", "start_", ",", " ", "end_", ",", " ", "order_"}], 
+     "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"s", ",", " ", "d", ",", " ", "l"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"d", " ", "=", " ", 
+        RowBox[{"LamutoPartition", "[", 
+         RowBox[{"list", ",", " ", "start", ",", " ", "end"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"l", " ", "=", " ", 
+        RowBox[{"d", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"s", " ", "=", " ", 
+        RowBox[{"d", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"s", " ", "\[Equal]", " ", "order"}], ",", 
+         RowBox[{"Return", "[", 
+          RowBox[{"l", "[", 
+           RowBox[{"[", "s", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"s", " ", ">", " ", "order"}], ",", " ", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{"QuickSelect", "[", 
+             RowBox[{"l", ",", " ", "start", ",", " ", 
+              RowBox[{"s", " ", "-", " ", "1"}], ",", " ", "order"}], "]"}], 
+            "]"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"QuickSelect", "[", 
+         RowBox[{"l", ",", " ", 
+          RowBox[{"s", " ", "+", " ", "1"}], ",", " ", "end", ",", " ", 
+          "order"}], "]"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuickSelect", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "5", ",", "1", ",", "3", ",", "6", ",", "7", ",", "8", ",", "2", ",", "4",
+      ",", "9"}], "}"}], ",", "1", ",", " ", "9", ",", " ", "5"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.7462588244799604`*^9, 3.746258826699045*^9}, {
+  3.7471331999279757`*^9, 3.747133202518241*^9}}],
+
+Cell[BoxData["7"], "Output",
+ CellChangeTimes->{{3.747133200390005*^9, 3.747133202998255*^9}, 
+   3.747133384171527*^9, 3.7471393883564253`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Explaination", "Subsection",
+ CellChangeTimes->{{3.745061675672035*^9, 3.7450616884680214`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Lomuto\[CloseCurlyQuote]s Partition\n", "Subsubsection"],
+ "\t1. \:0e01\:0e33\:0e2b\:0e19\:0e14 pivot \:0e08\:0e32\:0e01\:0e25\:0e34\
+\:0e2a\:0e15\:0e4c \:0e42\:0e14\:0e22\:0e43\:0e2b\:0e49 pivot \:0e40\:0e1b\
+\:0e47\:0e19\:0e15\:0e31\:0e27\:0e41\:0e23\:0e01\:0e2a\:0e38\:0e14\:0e02\:0e2d\
+\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c\n\t2. \:0e01\:0e33\:0e2b\:0e19\:0e14\
+\:0e43\:0e2b\:0e49 s \:0e04\:0e37\:0e2d\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\
+\:0e07\:0e01\:0e36\:0e48\:0e07\:0e01\:0e25\:0e32\:0e07 \:0e43\:0e2b\:0e49\
+\:0e04\:0e48\:0e32\:0e40\:0e23\:0e34\:0e48\:0e21\:0e15\:0e49\:0e19\:0e04\:0e37\
+\:0e2d\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e15\:0e31\:0e27\:0e41\:0e23\:0e01\n\t\
+3. \:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2b\:0e49 i \
+\:0e43\:0e0a\:0e49\:0e2a\:0e33\:0e2b\:0e23\:0e31\:0e1a\:0e2b\:0e32\:0e04\:0e48\
+\:0e32\:0e17\:0e35\:0e48\:0e19\:0e49\:0e2d\:0e22\:0e01\:0e27\:0e48\:0e32 \
+pivot \:0e41\:0e15\:0e48\:0e22\:0e31\:0e07\:0e44\:0e21\:0e48\:0e44\:0e14\:0e49\
+\:0e22\:0e49\:0e32\:0e22\:0e44\:0e1b\:0e17\:0e32\:0e07\:0e14\:0e49\:0e32\:0e19\
+\:0e0b\:0e49\:0e32\:0e22\:0e02\:0e2d\:0e07 pivot \:0e42\:0e14\:0e22\:0e21\
+\:0e35\:0e04\:0e48\:0e32\:0e40\:0e23\:0e34\:0e48\:0e21\:0e15\:0e49\:0e19\:0e17\
+\:0e35\:0e48\:0e15\:0e31\:0e27\:0e41\:0e23\:0e01\:0e02\:0e2d\:0e07\:0e25\:0e34\
+\:0e2a\:0e15\:0e4c \:0e25\:0e39\:0e1b\:0e08\:0e19\:0e16\:0e36\:0e07\:0e15\
+\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22\:0e02\:0e2d\:0e07\:0e25\
+\:0e34\:0e2a\:0e15\:0e4c\n\t4. \:0e23\:0e30\:0e2b\:0e27\:0e48\:0e32\:0e07\
+\:0e25\:0e39\:0e1b\:0e16\:0e49\:0e32\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e15\:0e31\
+\:0e27\:0e17\:0e35\:0e48 i \:0e21\:0e35\:0e04\:0e48\:0e32\:0e19\:0e49\:0e2d\
+\:0e22\:0e01\:0e27\:0e48\:0e32 pivot \:0e43\:0e2b\:0e49\:0e40\:0e25\:0e37\
+\:0e48\:0e2d\:0e19\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07 s \:0e21\:0e32\
+\:0e14\:0e49\:0e32\:0e19\:0e02\:0e27\:0e32\.0b\:0e41\:0e25\:0e30\:0e2a\:0e25\
+\:0e31\:0e1a\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e02\:0e2d\:0e07 s \
+\:0e41\:0e25\:0e30 i \:0e40\:0e1e\:0e37\:0e48\:0e2d\:0e22\:0e49\:0e32\:0e22 i \
+\:0e43\:0e2b\:0e49\:0e44\:0e1b\:0e2d\:0e22\:0e39\:0e48\:0e15\:0e33\:0e41\:0e2b\
+\:0e19\:0e48\:0e07\:0e17\:0e35\:0e48\:0e16\:0e39\:0e01\:0e15\:0e49\:0e2d\:0e07\
+ \n\t5. \:0e40\:0e21\:0e37\:0e48\:0e2d\:0e08\:0e1a\:0e25\:0e39\:0e1b\:0e2a\
+\:0e25\:0e31\:0e1a\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07 s \:0e01\:0e31\
+\:0e1a pivot\n\t6. \:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e04\
+\:0e48\:0e32\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e17\:0e35\:0e48\:0e41\:0e1a\:0e48\
+\:0e07\:0e41\:0e25\:0e49\:0e27\:0e41\:0e25\:0e30\:0e15\:0e33\:0e41\:0e2b\:0e19\
+\:0e48\:0e07\:0e02\:0e2d\:0e07 pivot"
+}], "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, 
+   3.746887203547798*^9, {3.7468873464793572`*^9, 3.7468874040398483`*^9}, {
+   3.746887451994404*^9, 3.7468874695967817`*^9}, {3.7468875183346233`*^9, 
+   3.7468875459273334`*^9}, {3.746887602164838*^9, 3.7468876044838357`*^9}, {
+   3.746888578285861*^9, 3.7468886597375*^9}, {3.7468887523951635`*^9, 
+   3.746888754754199*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LomutoPartition", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "5", ",", "1", ",", "3", ",", "6", ",", "7", ",", "8", ",", "2", ",", "4",
+      ",", "9"}], "}"}], ",", "1", ",", " ", "9"}], "]"}]], "Input",
+ CellChangeTimes->{{3.746888763070793*^9, 3.7468887862257977`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "4", ",", "1", ",", "3", ",", "2", ",", "5", ",", "8", ",", "6", ",", "7",
+      ",", "9"}], "}"}], ",", "5"}], "}"}]], "Output",
+ CellChangeTimes->{3.7471393883654237`*^9}]
+}, Open  ]],
+
+Cell["\<\
+LomutoPartition[list, start, end]
+\:0e42\:0e14\:0e22\:0e21\:0e35\:0e1e\:0e32\:0e23\:0e32\:0e21\:0e34\:0e40\:0e15\
+\:0e2d\:0e23\:0e4c\:0e14\:0e31\:0e07\:0e19\:0e35\:0e49
+list \:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e17\:0e35\:0e48\:0e15\:0e49\:0e2d\:0e07\
+\:0e01\:0e32\:0e23\:0e08\:0e30\:0e41\:0e1a\:0e48\:0e07 partition
+start \:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e17\:0e35\:0e48\:0e15\:0e49\
+\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e43\:0e2b\:0e49\:0e40\:0e23\:0e34\:0e48\:0e21\
+\:0e15\:0e49\:0e19\:0e17\:0e33\:0e07\:0e32\:0e19
+end \:0e08\:0e38\:0e14\:0e2a\:0e34\:0e49\:0e19\:0e2a\:0e38\:0e14\:0e17\:0e35\
+\:0e48\:0e02\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e17\:0e33\:0e07\:0e32\:0e19\
+\>", "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, 
+   3.746887203547798*^9, {3.7468873464793572`*^9, 3.7468874040398483`*^9}, {
+   3.746887451994404*^9, 3.7468874695967817`*^9}, {3.7468875183346233`*^9, 
+   3.7468875459273334`*^9}, {3.746887602164838*^9, 3.7468876044838357`*^9}, {
+   3.746888578285861*^9, 3.7468886597375*^9}, {3.7468887523951635`*^9, 
+   3.746888754754199*^9}, {3.7468888545225906`*^9, 3.7468888608355694`*^9}, {
+   3.746889022285502*^9, 3.7468890575001698`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Quick Select\n", "Subsubsection"],
+ "\t1. \:0e01\:0e33\:0e2b\:0e19\:0e14\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e41\
+\:0e25\:0e30\:0e2d\:0e31\:0e19\:0e14\:0e31\:0e1a\:0e04\:0e48\:0e32\:0e17\:0e35\
+\:0e48\:0e15\:0e49\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e21\:0e32 \:0e43\:0e2b\
+\:0e49 k \:0e04\:0e37\:0e2d\:0e2d\:0e31\:0e19\:0e14\:0e31\:0e1a\:0e17\:0e35\
+\:0e48\:0e15\:0e49\:0e2d\:0e07\:0e01\:0e32\:0e23\n\t2. \:0e19\:0e33\:0e25\
+\:0e34\:0e2a\:0e15\:0e4c\:0e44\:0e1b\:0e40\:0e02\:0e49\:0e32 LomutoPartition\n\
+\t3. \:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2b\:0e49 s \:0e04\:0e37\:0e2d\
+\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e02\:0e2d\:0e07 pivot \:0e17\
+\:0e35\:0e48\:0e44\:0e14\:0e49\:0e08\:0e32\:0e01 Lomuto \n\t4. \:0e2b\:0e32\
+\:0e01\:0e04\:0e48\:0e32 s \:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a k \
+\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19 \:0e25\:0e34\:0e2a\:0e15\
+\:0e4c\:0e15\:0e31\:0e27\:0e17\:0e35\:0e48 s\n\t5. \:0e2b\:0e32\:0e01 s > k \
+\:0e19\:0e33\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e44\:0e1b\:0e40\:0e02\:0e49\:0e32\
+ QuickSelect \:0e2d\:0e35\:0e01\:0e04\:0e23\:0e31\:0e49\:0e07\:0e42\:0e14\
+\:0e22\:0e17\:0e33\:0e40\:0e1b\:0e47\:0e19 sublist \:0e42\:0e14\:0e22\:0e40\
+\:0e23\:0e34\:0e48\:0e21\:0e17\:0e35\:0e48\:0e15\:0e31\:0e27\:0e41\:0e23\:0e01\
+\:0e16\:0e36\:0e07\:0e15\:0e31\:0e27\:0e17\:0e35\:0e48 s - 1 \:0e41\:0e25\
+\:0e49\:0e27\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e04\:0e48\:0e32\
+\:0e17\:0e35\:0e48\:0e44\:0e14\:0e49\n\t6. \:0e2b\:0e32\:0e01 s < k \:0e19\
+\:0e33\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e44\:0e1b\:0e40\:0e02\:0e49\:0e32 \
+QuickSelect \
+\:0e2d\:0e35\:0e01\:0e04\:0e23\:0e31\:0e49\:0e07\:0e42\:0e14\:0e22\:0e17\:0e33\
+\:0e40\:0e1b\:0e47\:0e19 sublist \:0e42\:0e14\:0e22\:0e40\:0e23\:0e34\:0e48\
+\:0e21\:0e17\:0e35\:0e48 s + 1 \:0e16\:0e36\:0e07\:0e15\:0e31\:0e27\:0e2a\
+\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22 \:0e41\:0e25\:0e49\:0e27\:0e23\:0e35\
+\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e04\:0e48\:0e32\:0e17\:0e35\:0e48\:0e44\
+\:0e14\:0e49\n\:0e40\:0e19\:0e37\:0e48\:0e2d\:0e07\:0e08\:0e32\:0e01\:0e40\
+\:0e21\:0e37\:0e48\:0e2d\:0e40\:0e02\:0e35\:0e22\:0e19\:0e42\:0e1b\:0e23\:0e41\
+\:0e01\:0e23\:0e21\:0e1a\:0e19 Mathametica \:0e01\:0e32\:0e23\:0e17\:0e33 \
+sublist \:0e08\:0e36\:0e07\:0e43\:0e0a\:0e49\:0e27\:0e34\:0e18\:0e35\:0e01\
+\:0e32\:0e23\:0e33\:0e01\:0e33\:0e2b\:0e19\:0e14\n\:0e08\:0e38\:0e14\:0e40\
+\:0e23\:0e34\:0e48\:0e21\:0e15\:0e49\:0e19\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\
+\:0e15\:0e4c\:0e41\:0e25\:0e30\:0e08\:0e38\:0e14\:0e2a\:0e34\:0e49\:0e19\:0e2a\
+\:0e38\:0e14\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e41\:0e17\:0e19\
+ \:0e44\:0e14\:0e49\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e14\
+\:0e31\:0e07\:0e19\:0e35\:0e49"
+}], "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, 
+   3.746887203547798*^9, {3.7468873464793572`*^9, 3.7468874040398483`*^9}, {
+   3.746887451994404*^9, 3.7468874695967817`*^9}, {3.7468875183346233`*^9, 
+   3.7468875459273334`*^9}, {3.746887602164838*^9, 3.7468876044838357`*^9}, {
+   3.746888578285861*^9, 3.7468886597375*^9}, {3.7468887523951635`*^9, 
+   3.746888754754199*^9}, {3.7468892797760024`*^9, 3.746889282990003*^9}, {
+   3.7468897771386476`*^9, 3.7468897796196475`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"QuickSelect", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "5", ",", "1", ",", "3", ",", "6", ",", "7", ",", "8", ",", "2", ",", "4",
+      ",", "9"}], "}"}], ",", "1", ",", " ", "9", ",", " ", "5"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7468897868136973`*^9, 3.746889802843171*^9}}],
+
+Cell[BoxData["7"], "Output",
+ CellChangeTimes->{3.7471393883764224`*^9}]
+}, Open  ]],
+
+Cell["\<\
+QuickSelect[list, start, end, order]
+list \:0e04\:0e37\:0e2d \
+\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e17\:0e35\:0e48\:0e15\:0e49\:0e2d\:0e07\:0e01\
+\:0e32\:0e23\:0e43\:0e2b\:0e49\:0e17\:0e33\:0e07\:0e32\:0e19
+start \:0e04\:0e37\:0e2d \:0e08\:0e38\:0e14\:0e40\:0e23\:0e34\:0e48\:0e21\
+\:0e15\:0e49\:0e19\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c
+end \:0e04\:0e37\:0e2d \:0e08\:0e38\:0e14\:0e2a\:0e34\:0e49\:0e19\:0e2a\:0e38\
+\:0e14\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c
+order \:0e04\:0e37\:0e2d \:0e2d\:0e31\:0e19\:0e14\:0e31\:0e1a\:0e17\:0e35\
+\:0e48\:0e40\:0e23\:0e32\:0e15\:0e49\:0e2d\:0e07\:0e01\:0e32\:0e23\
+\>", "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, 
+   3.746887203547798*^9, {3.7468873464793572`*^9, 3.7468874040398483`*^9}, {
+   3.746887451994404*^9, 3.7468874695967817`*^9}, {3.7468875183346233`*^9, 
+   3.7468875459273334`*^9}, {3.746887602164838*^9, 3.7468876044838357`*^9}, {
+   3.746888578285861*^9, 3.7468886597375*^9}, {3.7468887523951635`*^9, 
+   3.746888754754199*^9}, {3.7468892797760024`*^9, 3.746889282990003*^9}, {
+   3.7468897771386476`*^9, 3.7468897796196475`*^9}, {3.7468898795164766`*^9, 
+   3.746889881375827*^9}}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Hoare", "Section",
+ CellChangeTimes->{{3.7462590981839037`*^9, 3.746259099308096*^9}}],
+
+Cell[TextData[{
+ "2. Implement the ",
+ StyleBox["HoarePartition[A[l...r]]", "Code"],
+ " and ",
+ StyleBox["QuickSelect[A[l...r]],k]", "Code"],
+ " algorithm for finding the ",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["k", "th"], TraditionalForm]],
+  FormatType->"TraditionalForm"],
+ " smallest element."
+}], "Text",
+ CellChangeTimes->{{3.7462588524502044`*^9, 3.7462589085152225`*^9}, {
+  3.746258974190851*^9, 3.7462589756748714`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"HoarePartition", "[", 
+    RowBox[{"list_", ",", " ", "start_", ",", " ", "end_"}], "]"}], " ", ":=",
+    " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"l", ",", " ", "s", ",", " ", "p"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"p", " ", "=", " ", "start"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"l", " ", "=", " ", "list"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"i", " ", "=", " ", "start"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"j", " ", "=", " ", 
+       RowBox[{"end", " ", "+", " ", "1"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"loop", " ", "=", " ", "true"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"While", "[", 
+       RowBox[{
+        RowBox[{"loop", " ", "\[Equal]", " ", "true"}], ",", " ", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"iLoop", " ", "=", " ", "true"}], ";", " ", 
+         RowBox[{"jLoop", " ", "=", " ", "true"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"While", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"iLoop", " ", "==", " ", "true"}], " ", "&&", " ", 
+            RowBox[{"i", " ", "<", " ", "end"}]}], ",", " ", 
+           RowBox[{
+            RowBox[{"i", "++"}], ";", " ", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"l", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "\[GreaterEqual]", " ", 
+               RowBox[{"l", "[", 
+                RowBox[{"[", "p", "]"}], "]"}]}], ",", 
+              RowBox[{"Break", "[", "]"}]}], "]"}]}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"While", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"jLoop", " ", "\[Equal]", " ", "true"}], " ", "&&", " ", 
+            RowBox[{"j", " ", ">", " ", "1"}]}], ",", " ", 
+           RowBox[{
+            RowBox[{"j", "--"}], ";", " ", 
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"l", "[", 
+                RowBox[{"[", "j", "]"}], "]"}], "\[LessEqual]", "  ", 
+               RowBox[{"l", "[", 
+                RowBox[{"[", "p", "]"}], "]"}]}], ",", 
+              RowBox[{"Break", "[", "]"}]}], "]"}]}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"i", " ", "\[GreaterEqual]", " ", "j"}], ",", 
+           RowBox[{
+            RowBox[{"l", " ", "=", " ", 
+             RowBox[{"swap", "[", 
+              RowBox[{"l", ",", " ", "p", ",", " ", "j"}], "]"}]}], ";", " ", 
+            RowBox[{"Return", "[", 
+             RowBox[{"{", 
+              RowBox[{"l", ",", " ", "j"}], "}"}], "]"}]}]}], "]"}], ";", 
+         "\[IndentingNewLine]", 
+         RowBox[{"l", " ", "=", " ", 
+          RowBox[{"swap", "[", 
+           RowBox[{"l", ",", " ", "i", ",", " ", "j"}], "]"}]}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.746258814349264*^9, 3.7462588200432005`*^9}, {
+  3.7462589443263817`*^9, 3.746258950093598*^9}, {3.747133239301208*^9, 
+  3.747133283448222*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"QuickSelect", "[", 
+     RowBox[{
+     "list_", ",", " ", "start_", ",", " ", "end_", ",", " ", "order_"}], 
+     "]"}], " ", ":=", " ", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"s", ",", " ", "d", ",", " ", "l"}], "}"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"d", " ", "=", " ", 
+        RowBox[{"HoarePartition", "[", 
+         RowBox[{"list", ",", " ", "start", ",", " ", "end"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"l", " ", "=", " ", 
+        RowBox[{"d", "[", 
+         RowBox[{"[", "1", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"s", " ", "=", " ", 
+        RowBox[{"d", "[", 
+         RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"s", " ", "\[Equal]", " ", "order"}], ",", 
+         RowBox[{"Return", "[", 
+          RowBox[{"l", "[", 
+           RowBox[{"[", "s", "]"}], "]"}], "]"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"s", " ", ">", " ", "order"}], ",", " ", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Return", "[", 
+            RowBox[{"QuickSelect", "[", 
+             RowBox[{"l", ",", " ", "start", ",", " ", 
+              RowBox[{"s", " ", "-", " ", "1"}], ",", " ", "order"}], "]"}], 
+            "]"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"Return", "[", 
+        RowBox[{"QuickSelect", "[", 
+         RowBox[{"l", ",", " ", 
+          RowBox[{"s", " ", "+", " ", "1"}], ",", " ", "end", ",", " ", 
+          "order"}], "]"}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}], 
+   ";"}], "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{"QuickSelect", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+    "3", ",", "1", ",", "5", ",", "6", ",", "7", ",", "8", ",", "2", ",", "4",
+      ",", "9"}], "}"}], ",", "1", ",", " ", "9", ",", " ", "5"}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.7462588244799604`*^9, 3.746258826699045*^9}, 
+   3.747133260638433*^9}],
+
+Cell[BoxData["5"], "Output",
+ CellChangeTimes->{{3.7471332610754337`*^9, 3.7471332859360657`*^9}, 
+   3.747133388778496*^9, 3.7471393883924236`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Explaination", "Subsection",
+ CellChangeTimes->{{3.745061675672035*^9, 3.7450616884680214`*^9}}],
+
+Cell[TextData[{
+ StyleBox["Hoare\[CloseCurlyQuote]s Partition\n", "Subsubsection"],
+ "1. \:0e01\:0e33\:0e2b\:0e19\:0e14 pivot \
+\:0e08\:0e32\:0e01\:0e25\:0e34\:0e2a\:0e15\:0e4c \:0e42\:0e14\:0e22\:0e43\
+\:0e2b\:0e49 pivot \:0e40\:0e1b\:0e47\:0e19\:0e15\:0e31\:0e27\:0e41\:0e23\
+\:0e01\:0e2a\:0e38\:0e14\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c\n2. \
+\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2b\:0e49 i \:0e40\:0e23\:0e34\:0e48\
+\:0e21\:0e17\:0e35\:0e48\:0e15\:0e31\:0e27\:0e41\:0e23\:0e01\:0e02\:0e2d\:0e07\
+\:0e25\:0e34\:0e2a\:0e15\:0e4c \:0e41\:0e25\:0e30\:0e01\:0e33\:0e2b\:0e19\
+\:0e14\:0e43\:0e2b\:0e49 j \:0e40\:0e23\:0e34\:0e48\:0e21\:0e15\:0e49\:0e19\
+\:0e17\:0e35\:0e48\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22\
+\:0e02\:0e2d\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c\n3. \:0e25\:0e39\:0e1b\:0e08\
+\:0e19\:0e01\:0e27\:0e48\:0e32 i \:0e21\:0e32\:0e01\:0e01\:0e27\:0e48\:0e32 j \
+ \n3.1 \:0e25\:0e39\:0e1b i \:0e08\:0e19\:0e01\:0e27\:0e48\:0e32\:0e25\:0e34\
+\:0e2a\:0e15\:0e4c\:0e15\:0e31\:0e27\:0e17\:0e35\:0e48 i \:0e08\:0e30\:0e21\
+\:0e32\:0e01\:0e01\:0e27\:0e48\:0e32\:0e2b\:0e23\:0e37\:0e2d\:0e40\:0e17\:0e48\
+\:0e32\:0e01\:0e31\:0e1a pivot\n3.2 \:0e25\:0e39\:0e1b j \:0e08\:0e19\:0e01\
+\:0e27\:0e48\:0e32\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e15\:0e31\:0e27\:0e17\:0e35\
+\:0e48 j \:0e19\:0e49\:0e2d\:0e22\:0e01\:0e27\:0e48\:0e32\:0e2b\:0e23\:0e37\
+\:0e2d \:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a pivot\n3.3 \:0e40\:0e21\
+\:0e37\:0e48\:0e2d\:0e1e\:0e1a\:0e27\:0e48\:0e32\:0e25\:0e34\:0e2a\:0e15\:0e4c\
+\:0e15\:0e31\:0e27\:0e17\:0e35\:0e48 i \:0e21\:0e32\:0e01\:0e01\:0e27\:0e48\
+\:0e32\:0e15\:0e31\:0e27\:0e17\:0e35\:0e48 j \:0e41\:0e25\:0e30 i < j \:0e43\
+\:0e2b\:0e49\:0e17\:0e33\:0e01\:0e32\:0e23\:0e2a\:0e25\:0e31\:0e1a\:0e15\:0e33\
+\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e25\:0e34\:0e2a\:0e15\:0e4c\.0b\:0e15\:0e31\
+\:0e27\:0e17\:0e35\:0e48 j \:0e41\:0e25\:0e30 I\n4. \:0e40\:0e21\:0e37\:0e48\
+\:0e2d\:0e08\:0e1a\:0e25\:0e39\:0e1b\:0e2a\:0e25\:0e31\:0e1a\:0e15\:0e33\:0e41\
+\:0e2b\:0e19\:0e48\:0e07 pivot \:0e01\:0e31\:0e1a j\n5. \:0e23\:0e35\:0e40\
+\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e17\:0e35\:0e48\
+\:0e41\:0e1a\:0e48\:0e07\:0e41\:0e25\:0e49\:0e27\:0e41\:0e25\:0e30\:0e15\:0e33\
+\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e02\:0e2d\:0e07 pivot"
+}], "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, {
+  3.74688998106506*^9, 3.7468900071654787`*^9}, {3.7468908523917723`*^9, 
+  3.7468908764697647`*^9}, {3.747133344323168*^9, 3.7471333520175557`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"HoarePartition", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "3", ",", "1", ",", "5", ",", "6", ",", "7", ",", "8", ",", "2", ",", 
+      "4", ",", "9"}], "}"}], ",", "1", ",", " ", "9"}], "]"}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.7468908921217656`*^9, 3.7468909105877647`*^9}}],
+
+Cell["\<\
+HoarePartition[list, start, end]
+list \:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e17\:0e35\:0e48\:0e15\:0e49\:0e2d\:0e07\
+\:0e01\:0e32\:0e23\:0e08\:0e30\:0e41\:0e1a\:0e48\:0e07 partition
+start \:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e17\:0e35\:0e48\:0e15\:0e49\
+\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e43\:0e2b\:0e49\:0e40\:0e23\:0e34\:0e48\:0e21\
+\:0e15\:0e49\:0e19\:0e17\:0e33\:0e07\:0e32\:0e19
+end \:0e08\:0e38\:0e14\:0e2a\:0e34\:0e49\:0e19\:0e2a\:0e38\:0e14\:0e17\:0e35\
+\:0e48\:0e02\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e17\:0e33\:0e07\:0e32\:0e19\
+\>", "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, {
+   3.74688998106506*^9, 3.7468900071654787`*^9}, {3.7468908523917723`*^9, 
+   3.7468908764697647`*^9}, {3.7468909140627656`*^9, 3.746890916005767*^9}, 
+   3.746890957813716*^9}],
+
+Cell[TextData[{
+ StyleBox["Quick Select\n", "Subsubsection"],
+ "\:0e17\:0e33\:0e07\:0e32\:0e19\:0e40\:0e2b\:0e21\:0e37\:0e2d\:0e19\:0e40\
+\:0e2b\:0e21\:0e37\:0e2d\:0e19 QuickSelect \:0e41\:0e1a\:0e1a Lomuto \:0e40\
+\:0e1e\:0e35\:0e22\:0e07\:0e41\:0e15\:0e48\:0e40\:0e1b\:0e25\:0e35\:0e48\:0e22\
+\:0e19\:0e21\:0e32\:0e43\:0e0a\:0e49 Hoare Partition \:0e41\:0e17\:0e19"
+}], "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, 
+   3.746887203547798*^9, {3.7468873464793572`*^9, 3.7468874040398483`*^9}, {
+   3.746887451994404*^9, 3.7468874695967817`*^9}, {3.7468875183346233`*^9, 
+   3.7468875459273334`*^9}, {3.746887602164838*^9, 3.7468876044838357`*^9}, {
+   3.746888578285861*^9, 3.7468886597375*^9}, {3.7468887523951635`*^9, 
+   3.746888754754199*^9}, {3.7468892797760024`*^9, 3.746889282990003*^9}, {
+   3.7468897771386476`*^9, 3.7468897796196475`*^9}, {3.7468909707488194`*^9, 
+   3.7468909734138207`*^9}, 3.746891009064682*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Analysis", "Section",
+ CellChangeTimes->{{3.7462591524279165`*^9, 3.7462591552551146`*^9}}],
+
+Cell["\<\
+3. As learned in class, there are many techniques to analyze an algorithm. \
+Which of two partitioning algorithm is better? Why? Describe your answer.\
+\>", "Text",
+ CellChangeTimes->{{3.746258957966755*^9, 3.746259022555849*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Explaination", "Subsection",
+ CellChangeTimes->{{3.745061675672035*^9, 3.7450616884680214`*^9}}],
+
+Cell["\<\
+Hoare Partition \:0e17\:0e33\:0e07\:0e32\:0e19\:0e44\:0e14\:0e49\:0e14\:0e35\
+\:0e01\:0e27\:0e48\:0e32 \:0e40\:0e19\:0e37\:0e48\:0e2d\:0e07\:0e08\:0e32\
+\:0e01\:0e21\:0e35\:0e01\:0e32\:0e23\:0e44\:0e25\:0e48\:0e25\:0e33\:0e14\:0e31\
+\:0e1a\:0e08\:0e32\:0e01\:0e17\:0e31\:0e49\:0e07\:0e2b\:0e19\:0e49\:0e32\:0e44\
+\:0e1b\:0e2b\:0e25\:0e31\:0e07\:0e41\:0e25\:0e30\:0e2b\:0e25\:0e31\:0e07\:0e44\
+\:0e1b\:0e2b\:0e19\:0e49\:0e32
+\:0e17\:0e33\:0e43\:0e2b\:0e49\:0e01\:0e32\:0e23\:0e17\:0e33\:0e07\:0e32\:0e19\
+\:0e42\:0e14\:0e22\:0e40\:0e09\:0e25\:0e35\:0e48\:0e22\:0e19\:0e40\:0e23\:0e47\
+\:0e27\:0e01\:0e27\:0e48\:0e32\:0e16\:0e36\:0e07\:0e2a\:0e32\:0e21\:0e40\:0e17\
+\:0e48\:0e32\:0e41\:0e25\:0e30\:0e21\:0e35\:0e01\:0e32\:0e23\:0e2a\:0e25\:0e31\
+\:0e1a\:0e15\:0e33\:0e41\:0e2b\:0e19\:0e48\:0e07\:0e17\:0e35\:0e48\:0e19\:0e49\
+\:0e2d\:0e22\:0e01\:0e27\:0e48\:0e32 
+\:0e41\:0e15\:0e48\:0e17\:0e31\:0e49\:0e07 Hoare \:0e41\:0e25\:0e30 Lomuto \
+\:0e08\:0e30\:0e44\:0e14\:0e49 O(n^2) \:0e2b\:0e32\:0e01\:0e25\:0e34\:0e2a\
+\:0e15\:0e4c\:0e19\:0e31\:0e49\:0e19\:0e40\:0e23\:0e35\:0e22\:0e07\:0e25\:0e33\
+\:0e14\:0e31\:0e1a\:0e40\:0e23\:0e35\:0e22\:0e1a\:0e23\:0e49\:0e2d\:0e22\:0e41\
+\:0e25\:0e49\:0e27
+\
+\>", "Text",
+ CellChangeTimes->{{3.745061734263156*^9, 3.7450617381220756`*^9}, {
+  3.7468910257616816`*^9, 3.7468910349207816`*^9}, {3.746891537544386*^9, 
+  3.7468915414993963`*^9}}]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1536, 781},
+WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 159, 2, 99, "Title"],
+Cell[742, 26, 111, 1, 36, "Subtitle"],
+Cell[856, 29, 1008, 25, 141, "Input"],
+Cell[CellGroupData[{
+Cell[1889, 58, 144, 2, 72, "Section"],
+Cell[2036, 62, 510, 16, 32, "Text"],
+Cell[2549, 80, 1746, 45, 201, "Input"],
+Cell[CellGroupData[{
+Cell[4320, 129, 2214, 54, 281, "Input"],
+Cell[6537, 185, 144, 2, 40, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6718, 192, 102, 1, 37, "Subsection"],
+Cell[6823, 195, 3077, 42, 155, "Text"],
+Cell[CellGroupData[{
+Cell[9925, 241, 304, 7, 40, "Input"],
+Cell[10232, 250, 247, 7, 40, "Output"]
+}, Open  ]],
+Cell[10494, 260, 1196, 18, 106, "Text"],
+Cell[11693, 280, 3240, 45, 193, "Text"],
+Cell[CellGroupData[{
+Cell[14958, 329, 318, 8, 40, "Input"],
+Cell[15279, 339, 72, 1, 40, "Output"]
+}, Open  ]],
+Cell[15366, 343, 1197, 19, 106, "Text"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16612, 368, 92, 1, 72, "Section"],
+Cell[16707, 371, 437, 13, 32, "Text"],
+Cell[17147, 386, 3197, 75, 301, "Input"],
+Cell[CellGroupData[{
+Cell[20369, 465, 2188, 54, 281, "Input"],
+Cell[22560, 521, 148, 2, 40, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[22745, 528, 102, 1, 37, "Subsection"],
+Cell[22850, 531, 2522, 34, 193, "Text"],
+Cell[25375, 567, 331, 9, 40, "Input"],
+Cell[25709, 578, 807, 13, 87, "Text"],
+Cell[26519, 593, 955, 14, 60, "Text"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27523, 613, 97, 1, 72, "Section"],
+Cell[27623, 616, 240, 4, 30, "Text"],
+Cell[CellGroupData[{
+Cell[27888, 624, 102, 1, 37, "Subsection"],
+Cell[27993, 627, 1390, 22, 87, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

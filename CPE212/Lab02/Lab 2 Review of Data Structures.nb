@@ -1,0 +1,577 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     26216,        568]
+NotebookOptionsPosition[     24748,        516]
+NotebookOutlinePosition[     25171,        532]
+CellTagsIndexPosition[     25128,        529]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["CPE 212 Algorithm Design (1/61)",
+ FontWeight->"Bold"]], "Title",
+ CellChangeTimes->{{3.7444247019703035`*^9, 3.744424711889574*^9}, {
+  3.7445195594258566`*^9, 3.7445195617408524`*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->36],
+
+Cell[TextData[StyleBox["Lab II: Review of Data Structures",
+ FontSize->24,
+ FontWeight->"Bold"]], "Subtitle",
+ CellChangeTimes->{{3.744424717122974*^9, 3.7444247269204245`*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Linked List",
+ FontSize->22,
+ FontWeight->"Bold"]], "Section",
+ CellChangeTimes->{{3.7444248707354755`*^9, 3.7444248730786767`*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell["\<\
+This source file provides a template for working with a linked list. Complete \
+the functins the following functions as discussed in the class:\
+\>", "Text",
+ CellChangeTimes->{{3.7444249253169985`*^9, 3.7444249617412505`*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+append[input1_, input2_] adds a given key to the end of the list.\
+\>", "Item",
+ CellChangeTimes->{{3.744424982427257*^9, 3.7444250192432714`*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell["\<\
+delete[input1_, input2_] removes a given key from the list. The function \
+returns new linked list if the key is removed successfully and returns old \
+linked list if the key is not found in the list. \
+\>", "Item",
+ CellChangeTimes->{{3.744424982427257*^9, 3.744425069325209*^9}, {
+  3.7444275760422487`*^9, 3.744427593922649*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"toLinkedList", "[", "x_List", "]"}], ":=", 
+  RowBox[{"Fold", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"#2", ",", "#1"}], "}"}], "&"}], ",", 
+    RowBox[{"{", "}"}], ",", 
+    RowBox[{"Reverse", "[", "x", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7444254892856145`*^9, 3.744425526326586*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"append", "[", 
+    RowBox[{"input1_", ",", "input2_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"list", ",", " ", "add"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"list", " ", "=", " ", "input1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Length", "[", 
+          RowBox[{"list", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "\[Equal]", " ", "0"}],
+         ",", " ", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"list", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "=", " ", 
+         RowBox[{"toLinkedList", "[", 
+          RowBox[{"{", "input2", "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"list", "[", 
+          RowBox[{"[", "2", "]"}], "]"}], "=", 
+         RowBox[{"append", "[", 
+          RowBox[{
+           RowBox[{"list", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", " ", "input2"}], "]"}]}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "list", "]"}]}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->CompressedData["
+1:eJxTTMoPSmViYGAQAWIQ/fjDknNvnr52jJ0deRlE7yljU5N+9tox+mmELogu
+sz9pCKILslxsQPRpTx1HEO0uGhADoo3PCmSD6HUPN9eC6GomkQ4QzfAusRNE
+b+Ox7gPRP/76rgXRWWnPN4LoU0cX7QPROuuNj4DoJRs9ToPouax3LoFo0TSj
+OyB66ZvfL0D0rSThj2Bz4pb9AtE7XecxyADpBdP9OEF0054KIRAdse27OIje
+MltAEkRnqJ7QB9FHTGPMQfSK/4H2IFr6sEAUiM7sFf5zFkjr2WT8BdEVwlsY
+zwFpgyxNDhC9Qa7GQeH5a0etuK9getqWQ08VgbTn3vJnIBoAbRiqvQ==
+  "]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"delete", "[", 
+    RowBox[{"input1_", ",", "input2_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", "list", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"list", " ", "=", " ", "input1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"list", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], " ", "\[Equal]", " ", "input2"}], 
+        ",", " ", "\[IndentingNewLine]", 
+        RowBox[{"list", " ", "=", " ", 
+         RowBox[{"list", "[", 
+          RowBox[{"[", "2", "]"}], "]"}]}], ",", "\[IndentingNewLine]", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", 
+            RowBox[{"list", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "]"}], " ", "\[NotEqual]", " ", 
+           "0"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"list", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], " ", "=", " ", 
+           RowBox[{"delete", "[", 
+            RowBox[{
+             RowBox[{"list", "[", 
+              RowBox[{"[", "2", "]"}], "]"}], ",", " ", "input2"}], "]"}]}], 
+          ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Return", "[", "list", "]"}], ";"}]}], 
+         "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Return", "[", "list", "]"}], ";"}]}], "\[IndentingNewLine]", 
+    "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7444256350320582`*^9, 3.744425652481656*^9}, {
+  3.7445229747148123`*^9, 3.7445230453325233`*^9}, {3.7445230996115265`*^9, 
+  3.7445231657942424`*^9}, {3.74452323728398*^9, 3.744523294121985*^9}, {
+  3.744523348237446*^9, 3.7445234064094424`*^9}, {3.7445253392078285`*^9, 
+  3.7445253535618277`*^9}, {3.7445258854133515`*^9, 3.7445259511973486`*^9}, {
+  3.7445275940589905`*^9, 3.744527602232021*^9}}],
+
+Cell["\<\
+Then, test your code by performing the following sequence of operaions:\
+\>", "Text",
+ CellChangeTimes->{{3.744425085127819*^9, 3.744425101905129*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell["Add the following numbers 50, 45, 32, 28, 10 to the list", \
+"ItemNumbered",
+ CellChangeTimes->{{3.744425283391165*^9, 3.744425300480878*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"linkedList", " ", "=", " ", 
+  RowBox[{"toLinkedList", "[", 
+   RowBox[{"{", 
+    RowBox[{
+    "50", ",", " ", "45", ",", " ", "32", ",", " ", "28", ",", " ", "10"}], 
+    "}"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.74452035900464*^9, 3.7445203795896325`*^9}, {
+  3.7445204693334074`*^9, 3.7445204810204077`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"50", ",", 
+   RowBox[{"{", 
+    RowBox[{"45", ",", 
+     RowBox[{"{", 
+      RowBox[{"32", ",", 
+       RowBox[{"{", 
+        RowBox[{"28", ",", 
+         RowBox[{"{", 
+          RowBox[{"10", ",", 
+           RowBox[{"{", "}"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.744520370268635*^9, 3.7445203878146343`*^9}, 
+   3.7445204257537003`*^9, {3.7445204716594057`*^9, 3.7445204818804255`*^9}, 
+   3.7445215182204638`*^9, 3.7445219663539624`*^9, 3.7445233029799848`*^9, 
+   3.744523631108801*^9, 3.7450552467177444`*^9, 3.7450586214071503`*^9, 
+   3.7450604552463565`*^9}]
+}, Open  ]],
+
+Cell["Append the number 41", "ItemNumbered",
+ CellChangeTimes->{{3.744425283391165*^9, 3.744425309759369*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"linkedList", " ", "=", " ", 
+  RowBox[{"append", "[", 
+   RowBox[{"linkedList", ",", " ", "41"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7445204522483463`*^9, 3.7445204910034046`*^9}, 
+   3.744520528085992*^9, {3.744520800447008*^9, 3.744520874201009*^9}, {
+   3.74452106280405*^9, 3.7445210642230496`*^9}, {3.7445212385162992`*^9, 
+   3.7445212483413*^9}, {3.7445224206890106`*^9, 3.744522422050008*^9}, {
+   3.744522773728462*^9, 3.744522777071464*^9}, {3.744522889988597*^9, 
+   3.7445228926665983`*^9}, {3.7450586802491407`*^9, 3.745058686315177*^9}, {
+   3.745060337229808*^9, 3.745060368748871*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"50", ",", 
+   RowBox[{"{", 
+    RowBox[{"45", ",", 
+     RowBox[{"{", 
+      RowBox[{"32", ",", 
+       RowBox[{"{", 
+        RowBox[{"28", ",", 
+         RowBox[{"{", 
+          RowBox[{"10", ",", 
+           RowBox[{"{", 
+            RowBox[{"41", ",", 
+             RowBox[{"{", "}"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}]}], 
+    "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.7445216497886534`*^9, 3.744521712903653*^9}, {
+   3.7445217703223143`*^9, 3.7445218212786894`*^9}, 3.7445218875135975`*^9, {
+   3.744521926360963*^9, 3.744521976566968*^9}, {3.744522087557819*^9, 
+   3.744522115292823*^9}, 3.7445221523117228`*^9, {3.7445222048800917`*^9, 
+   3.7445222480400133`*^9}, {3.7445223449220066`*^9, 3.744522361749009*^9}, {
+   3.744522391890007*^9, 3.7445224447170134`*^9}, 3.744522688745572*^9, {
+   3.7445227648904667`*^9, 3.7445227929354672`*^9}, {3.7445228872796016`*^9, 
+   3.744522914258816*^9}, 3.7445229655818157`*^9, 3.744523622661805*^9, 
+   3.745055253933783*^9, 3.7450586253339396`*^9, {3.7450586809421415`*^9, 
+   3.7450586867001424`*^9}, 3.745060458605485*^9}]
+}, Open  ]],
+
+Cell["Delete the number 32", "ItemNumbered",
+ CellChangeTimes->{{3.744425283391165*^9, 3.744425317473562*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"liknedList", " ", "=", 
+  RowBox[{"delete", "[", 
+   RowBox[{"linkedList", ",", " ", "32"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7445205652609916`*^9, 3.744520574730993*^9}, {
+  3.7445249038465743`*^9, 3.744524904482571*^9}, {3.7445253727918267`*^9, 
+  3.7445253781508274`*^9}, {3.7445259617433496`*^9, 3.744525961976351*^9}, {
+  3.745060380586871*^9, 3.7450603821638365`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"50", ",", 
+   RowBox[{"{", 
+    RowBox[{"45", ",", 
+     RowBox[{"{", 
+      RowBox[{"28", ",", 
+       RowBox[{"{", 
+        RowBox[{"10", ",", 
+         RowBox[{"{", 
+          RowBox[{"41", ",", 
+           RowBox[{"{", "}"}]}], "}"}]}], "}"}]}], "}"}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{{3.744523300216983*^9, 3.744523305317986*^9}, {
+   3.744523357929442*^9, 3.7445234086324563`*^9}, 3.744524905344573*^9, {
+   3.744525364785842*^9, 3.744525374142826*^9}, {3.7445259590843477`*^9, 
+   3.744525962538351*^9}, 3.745060460998028*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Explanation",
+ FontWeight->"Bold"]], "Subsection",
+ CellChangeTimes->{{3.744427675285763*^9, 3.744427687136335*^9}, {
+  3.745055061005517*^9, 3.7450550704433727`*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ "\:0e2b\:0e25\:0e31\:0e01\:0e01\:0e32\:0e23\:0e17\:0e33\:0e07\:0e32\:0e19\
+\:0e02\:0e2d\:0e07\:0e41\:0e15\:0e48\:0e25\:0e30\:0e1f\:0e31\:0e07\:0e01\:0e4c\
+\:0e0a\:0e31\:0e19\n",
+ StyleBox["Append Function", "Subsection",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e40\:0e1e\:0e34\:0e48\
+\:0e21\:0e02\:0e49\:0e2d\:0e21\:0e39\:0e25\:0e25\:0e07\:0e25\:0e34\:0e07\:0e01\
+\:0e4c\:0e25\:0e34\:0e2a\:0e15\:0e4c\n",
+ StyleBox["\:0e2d\:0e34\:0e19\:0e1e\:0e38\:0e14: input1, input2", "Item"],
+ "\n\:0e42\:0e14\:0e22\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2b\:0e49 input1 \
+\:0e04\:0e37\:0e2d \:0e25\:0e34\:0e07\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\
+\:0e4c\:0e41\:0e25\:0e30 input2 \:0e04\:0e37\:0e2d\:0e04\:0e48\:0e32\:0e17\
+\:0e35\:0e48\:0e15\:0e49\:0e2d\:0e07\:0e01\:0e32\:0e23\:0e08\:0e30\:0e40\:0e1e\
+\:0e34\:0e48\:0e21\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e19\
+\:0e35\:0e49\:0e17\:0e33\:0e07\:0e32\:0e19\:0e41\:0e1a\:0e1a recursion \:0e42\
+\:0e14\:0e22\:0e01\:0e32\:0e23\:0e19\:0e33 input1 \:0e21\:0e32\:0e15\:0e23\
+\:0e27\:0e08\:0e2a\:0e2d\:0e1a\:0e27\:0e48\:0e32\:0e40\:0e1b\:0e47\:0e19\:0e42\
+\:0e2b\:0e19\:0e14\n\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\
+\:0e22\:0e2b\:0e23\:0e37\:0e2d\:0e44\:0e21\:0e48\:0e2b\:0e32\:0e01\:0e44\:0e21\
+\:0e48\:0e43\:0e0a\:0e48\:0e01\:0e47\:0e08\:0e30\:0e2a\:0e48\:0e07\:0e04\:0e48\
+\:0e32\:0e15\:0e48\:0e2d\:0e44\:0e1b\:0e40\:0e23\:0e37\:0e48\:0e2d\:0e22 \
+\:0e46 \:0e08\:0e19\:0e40\:0e08\:0e2d\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\
+\:0e22\:0e41\:0e25\:0e30\:0e2a\:0e23\:0e49\:0e32\:0e07\:0e42\:0e2b\:0e19\:0e14\
+\:0e43\:0e2b\:0e21\:0e48\:0e15\:0e48\:0e2d\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\
+\:0e17\:0e49\:0e32\:0e22\n\:0e40\:0e23\:0e34\:0e48\:0e21\:0e08\:0e32\:0e01\
+\:0e19\:0e33 input1 \:0e21\:0e32\:0e40\:0e01\:0e47\:0e1a\:0e44\:0e27\:0e49\
+\:0e43\:0e19\:0e15\:0e31\:0e27\:0e41\:0e1b\:0e23 list \
+\:0e40\:0e1e\:0e37\:0e48\:0e2d\:0e43\:0e2b\:0e49\:0e2a\:0e32\:0e21\:0e32\:0e23\
+\:0e16\:0e41\:0e01\:0e49\:0e44\:0e02\:0e04\:0e48\:0e32\:0e44\:0e14\:0e49\n\
+\:0e08\:0e32\:0e01\:0e19\:0e31\:0e49\:0e19\:0e15\:0e23\:0e27\:0e08\:0e2a\:0e2d\
+\:0e1a\:0e27\:0e48\:0e32\:0e42\:0e2b\:0e19\:0e14\:0e15\:0e31\:0e27\:0e1b\:0e31\
+\:0e08\:0e08\:0e38\:0e1a\:0e31\:0e19\:0e40\:0e1b\:0e47\:0e19\:0e42\:0e2b\:0e19\
+\:0e14\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22\:0e2b\:0e23\
+\:0e37\:0e2d\:0e44\:0e21\:0e48 \:0e14\:0e49\:0e27\:0e22\:0e01\:0e32\:0e23\
+\:0e40\:0e0a\:0e47\:0e04\:0e02\:0e19\:0e32\:0e14\:0e2d\:0e32\:0e40\:0e23\:0e22\
+\:0e4c\n\:0e02\:0e2d\:0e07 list \:0e0a\:0e48\:0e2d\:0e07\:0e17\:0e35\:0e48 2 \
+(Length[list[[2]]])\n\n",
+ StyleBox["\:0e01\:0e23\:0e13\:0e35 Length[list[[2]]] \
+\:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a 0",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e41\:0e2a\:0e14\:0e07\:0e27\:0e48\:0e32\:0e42\:0e2b\:0e19\:0e14\:0e1b\
+\:0e31\:0e08\:0e08\:0e38\:0e1a\:0e31\:0e19\:0e40\:0e1b\:0e47\:0e19\:0e42\:0e2b\
+\:0e19\:0e14\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22 \
+\:0e08\:0e36\:0e07\:0e2a\:0e23\:0e49\:0e32\:0e07\:0e42\:0e2b\:0e19\:0e14\:0e15\
+\:0e31\:0e27\:0e43\:0e2b\:0e21\:0e48\:0e02\:0e31\:0e49\:0e19\:0e21\:0e32\:0e42\
+\:0e14\:0e22\:0e43\:0e2a\:0e48\:0e04\:0e48\:0e32 input2 \:0e25\:0e07\:0e44\
+\:0e1b ( toLinkedList[{input2}] )\n\:0e41\:0e25\:0e49\:0e27\:0e19\:0e33\:0e44\
+\:0e1b\:0e15\:0e48\:0e2d\:0e17\:0e49\:0e32\:0e22\:0e42\:0e2b\:0e19\:0e14\:0e1b\
+\:0e31\:0e08\:0e08\:0e38\:0e1a\:0e31\:0e19 (list[[2]] = \
+toLinkedList[{input2}])\n\n",
+ StyleBox["\:0e01\:0e23\:0e13\:0e35 Length[list[[2]]] \
+\:0e44\:0e21\:0e48\:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a 0",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e41\:0e2a\:0e14\:0e07\:0e27\:0e48\:0e32\:0e42\:0e2b\:0e19\:0e14\:0e15\
+\:0e31\:0e27\:0e1b\:0e31\:0e08\:0e08\:0e38\:0e1a\:0e31\:0e19\:0e44\:0e21\:0e48\
+\:0e43\:0e0a\:0e48\:0e15\:0e31\:0e27\:0e2a\:0e38\:0e14\:0e17\:0e49\:0e32\:0e22\
+ \:0e08\:0e36\:0e07\:0e2a\:0e48\:0e07\:0e42\:0e2b\:0e19\:0e14\:0e15\:0e31\
+\:0e27\:0e17\:0e31\:0e14\:0e44\:0e1b\:0e40\:0e02\:0e49\:0e32\:0e44\:0e1b\:0e43\
+\:0e19\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19 append \:0e40\:0e1e\
+\:0e37\:0e48\:0e2d\:0e15\:0e23\:0e27\:0e08\:0e2a\:0e2d\:0e1a\:0e15\:0e48\:0e2d\
+\:0e44\:0e1b\n\:0e41\:0e25\:0e30\:0e19\:0e33\:0e04\:0e48\:0e32\:0e17\:0e35\
+\:0e48\:0e44\:0e14\:0e49\:0e08\:0e32\:0e01\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\
+\:0e31\:0e19\:0e21\:0e32\:0e43\:0e2a\:0e48\:0e04\:0e37\:0e19 (list[[2]] = \
+append[list[[2]], input2])\n\n\
+\:0e08\:0e1a\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e14\:0e49\:0e27\
+\:0e22\:0e01\:0e32\:0e23\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e04\
+\:0e48\:0e32\:0e02\:0e2d\:0e07 list \:0e2d\:0e2d\:0e01\:0e21\:0e32\n\n",
+ StyleBox["Delete Function", "Subsection",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e25\:0e1a\:0e04\:0e48\
+\:0e32\:0e2d\:0e2d\:0e01\:0e08\:0e32\:0e01\:0e25\:0e34\:0e2a\:0e15\:0e4c\n\
+\:0e2d\:0e34\:0e19\:0e1e\:0e38\:0e14: input1, input2\n\
+\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2b\:0e49   \n\tinput1 \:0e04\:0e37\
+\:0e2d \:0e25\:0e34\:0e07\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\:0e4c\n\tinput2 \
+\:0e04\:0e37\:0e2d \:0e02\:0e49\:0e2d\:0e21\:0e39\:0e25\:0e17\:0e35\:0e48\
+\:0e2d\:0e22\:0e32\:0e01\:0e08\:0e30\:0e25\:0e1a\:0e2d\:0e2d\:0e01\:0e08\:0e32\
+\:0e01\:0e25\:0e34\:0e2a\:0e15\:0e4c\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\
+\:0e31\:0e19\:0e19\:0e35\:0e49\:0e40\:0e02\:0e35\:0e22\:0e19\:0e42\:0e14\:0e22\
+\:0e43\:0e0a\:0e49\:0e2b\:0e25\:0e31\:0e01\:0e01\:0e32\:0e23 recursion \:0e42\
+\:0e14\:0e22\:0e08\:0e30\:0e23\:0e31\:0e1a input1 \:0e40\:0e02\:0e49\:0e32\
+\:0e21\:0e32\n\:0e41\:0e25\:0e49\:0e27\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\
+\:0e4c\:0e19\:0e2d\:0e32\:0e40\:0e23\:0e22\:0e4c\:0e17\:0e35\:0e48\:0e25\:0e1a\
+ input2 \:0e2d\:0e2d\:0e01\:0e44\:0e1b\:0e41\:0e25\:0e49\:0e27\n\:0e42\:0e14\
+\:0e22\:0e40\:0e23\:0e34\:0e48\:0e21\:0e08\:0e32\:0e01\:0e19\:0e33 input1 \
+\:0e40\:0e1b\:0e47\:0e19\:0e25\:0e07\:0e43\:0e19\:0e15\:0e31\:0e27\:0e41\:0e1b\
+\:0e23 list \
+\:0e40\:0e1e\:0e37\:0e48\:0e2d\:0e43\:0e2b\:0e49\:0e2a\:0e32\:0e21\:0e32\:0e23\
+\:0e16\:0e41\:0e01\:0e49\:0e44\:0e02\:0e04\:0e48\:0e32\:0e43\:0e19\:0e1f\:0e31\
+\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e44\:0e14\:0e49\n\:0e08\:0e32\:0e01\
+\:0e19\:0e31\:0e49\:0e19\:0e40\:0e0a\:0e47\:0e04 list \
+\:0e0a\:0e48\:0e2d\:0e07\:0e17\:0e35\:0e48 1 (list[[1]]) \:0e27\:0e48\:0e32\
+\:0e21\:0e35\:0e04\:0e48\:0e32\:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a \
+input2 \:0e2b\:0e23\:0e37\:0e2d\:0e44\:0e21\:0e48\n\n",
+ StyleBox["\:0e01\:0e23\:0e13\:0e35\:0e17\:0e35\:0e48 1 list[[1]] \
+\:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a input2",
+  FontWeight->"Bold",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e40\:0e19\:0e37\:0e48\:0e2d\:0e07\:0e08\:0e32\:0e01\:0e40\:0e23\:0e32\
+\:0e08\:0e30\:0e25\:0e1a\:0e04\:0e48\:0e32 list[[1]] \:0e2d\:0e2d\:0e01 \
+\:0e40\:0e23\:0e32\:0e08\:0e36\:0e07\:0e40\:0e2d\:0e32 list[[2]] \:0e21\:0e32\
+\:0e21\:0e32\:0e41\:0e17\:0e19\:0e17\:0e35\:0e48\:0e25\:0e34\:0e07\:0e01\:0e4c\
+\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e15\:0e31\:0e27\:0e1b\:0e31\:0e08\:0e08\:0e38\
+\:0e1a\:0e31\:0e19 \:0e42\:0e14\:0e22\:0e01\:0e32\:0e23\n\:0e19\:0e33\:0e04\
+\:0e48\:0e32 list[[2]] \:0e21\:0e32\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2a\
+\:0e48 list \
+\:0e41\:0e25\:0e30\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e44\:0e14\
+\:0e49\:0e40\:0e25\:0e22\n(list = list[[2]])\n\n",
+ StyleBox["\:0e01\:0e23\:0e13\:0e35\:0e17\:0e35\:0e48 2 list[[1]] \
+\:0e44\:0e21\:0e48\:0e40\:0e17\:0e48\:0e32\:0e01\:0e31\:0e1a input2",
+  FontWeight->"Bold",
+  FontVariations->{"Underline"->True}],
+ "\n\:0e15\:0e23\:0e27\:0e08\:0e2a\:0e2d\:0e1a\:0e01\:0e48\:0e2d\:0e19\:0e27\
+\:0e48\:0e32 list[[2]] \:0e44\:0e21\:0e48\:0e43\:0e0a\:0e48\:0e2d\:0e32\:0e40\
+\:0e23\:0e22\:0e4c\:0e40\:0e1b\:0e25\:0e48\:0e32 \:0e40\:0e21\:0e37\:0e48\
+\:0e2d\:0e44\:0e21\:0e48\:0e43\:0e0a\:0e48\:0e2d\:0e32\:0e40\:0e23\:0e22\:0e4c\
+\:0e40\:0e1b\:0e25\:0e48\:0e32\:0e41\:0e25\:0e30\:0e1f\:0e31\:0e07\:0e01\:0e4c\
+\:0e0a\:0e31\:0e19\:0e19\:0e35\:0e49\:0e17\:0e33\:0e07\:0e32\:0e19\:0e41\:0e1a\
+\:0e1a \nRecursion \:0e40\:0e23\:0e32\:0e2a\:0e32\:0e21\:0e32\:0e23\:0e16\
+\:0e2a\:0e48\:0e07 list[[2]] \:0e40\:0e02\:0e49\:0e32\:0e44\:0e1b\:0e43\:0e19\
+\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19 delete \:0e41\:0e25\:0e30\
+\:0e19\:0e33\:0e04\:0e48\:0e32\:0e2d\:0e32\:0e40\:0e23\:0e22\:0e4c\:0e17\:0e35\
+\:0e48\:0e44\:0e14\:0e49\:0e08\:0e32\:0e01\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\
+\:0e0a\:0e31\:0e19\:0e21\:0e32\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2a\:0e48\
+ list[[2]] \n(list[[2]] = delete[list[[2]]], input2)\n\n\:0e08\:0e1a\:0e1f\
+\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e14\:0e49\:0e27\:0e22\:0e01\:0e32\
+\:0e23\:0e23\:0e35\:0e40\:0e17\:0e34\:0e23\:0e4c\:0e19\:0e04\:0e48\:0e32\:0e02\
+\:0e2d\:0e07 list \:0e2d\:0e2d\:0e01\:0e21\:0e32\n"
+}], "Text",
+ CellChangeTimes->{{3.7444277129144545`*^9, 3.7444277167885427`*^9}, {
+   3.7450550263030043`*^9, 3.7450552220166273`*^9}, {3.7450552767167425`*^9, 
+   3.7450553165107436`*^9}, 3.7450560543050857`*^9, {3.745056188617472*^9, 
+   3.745056322329472*^9}, {3.745056538284114*^9, 3.7450565516351156`*^9}, {
+   3.7450575429189205`*^9, 3.74505754462792*^9}, 3.7450581629772177`*^9, {
+   3.7450589441932817`*^9, 3.74505894758924*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[StyleBox["Evaluation",
+ FontWeight->"Bold"]], "Subsection",
+ CellChangeTimes->{{3.744427701336114*^9, 3.744427703148176*^9}},
+ FontFamily->"Times New Roman"],
+
+Cell[TextData[{
+ StyleBox["Append function", "Subsection"],
+ "\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e2a\:0e32\:0e21\:0e32\
+\:0e23\:0e16\:0e40\:0e1e\:0e34\:0e48\:0e21\:0e42\:0e2b\:0e19\:0e14\:0e43\:0e2b\
+\:0e21\:0e48\:0e44\:0e14\:0e49\:0e16\:0e39\:0e01\:0e15\:0e49\:0e2d\:0e07 \
+\:0e2a\:0e32\:0e21\:0e32\:0e23\:0e16\:0e43\:0e0a\:0e49\:0e44\:0e14\:0e49\:0e17\
+\:0e31\:0e49\:0e07\:0e15\:0e31\:0e27\:0e40\:0e25\:0e02\:0e41\:0e25\:0e30\:0e15\
+\:0e31\:0e27\:0e2d\:0e31\:0e01\:0e29\:0e23 \:0e41\:0e15\:0e48\:0e21\:0e35\
+\:0e02\:0e49\:0e2d\:0e41\:0e21\:0e49\:0e40\:0e1e\:0e35\:0e22\:0e07\:0e27\:0e48\
+\:0e32\:0e42\:0e2b\:0e19\:0e14\:0e41\:0e15\:0e48\:0e25\:0e30\:0e15\:0e31\:0e27\
+\:0e08\:0e30\:0e15\:0e49\:0e2d\:0e07\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e04\:0e48\
+\:0e32\:0e44\:0e27\:0e49\:0e0a\:0e48\:0e2d\:0e07\:0e41\:0e23\:0e01\:0e41\:0e25\
+\:0e30\:0e0a\:0e48\:0e2d\:0e07\:0e2a\:0e2d\:0e07\:0e2a\:0e33\:0e2b\:0e23\:0e31\
+\:0e1a\:0e0a\:0e35\:0e49\:0e44\:0e1b\:0e42\:0e2b\:0e19\:0e14\:0e15\:0e31\:0e27\
+\:0e16\:0e31\:0e14\:0e44\:0e1b \:0e41\:0e25\:0e30\:0e40\:0e19\:0e37\:0e48\
+\:0e2d\:0e07\:0e08\:0e32\:0e01\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\
+\:0e44\:0e21\:0e48\:0e44\:0e14\:0e49\:0e17\:0e33\:0e07\:0e32\:0e19\:0e41\:0e1a\
+\:0e1a reference \n\:0e08\:0e36\:0e07\:0e44\:0e21\:0e48\:0e44\:0e14\:0e49\
+\:0e40\:0e1b\:0e25\:0e35\:0e48\:0e22\:0e19\:0e04\:0e48\:0e32\:0e25\:0e34\:0e07\
+\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e42\:0e14\:0e22\:0e15\:0e23\:0e07\
+\:0e15\:0e49\:0e2d\:0e07\:0e40\:0e2d\:0e32\:0e04\:0e48\:0e32\:0e17\:0e35\:0e48\
+\:0e44\:0e14\:0e49\:0e08\:0e32\:0e01\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\
+\:0e19\:0e21\:0e32\:0e01\:0e33\:0e2b\:0e19\:0e14\:0e43\:0e2a\:0e48\:0e25\:0e34\
+\:0e07\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\:0e4c\:0e2d\:0e35\:0e01\:0e17\:0e35\
+\nlinkedList = append[linkedList, 10]\n\n",
+ StyleBox["Delete function", "Subsection",
+  FontWeight->"Bold"],
+ "\n\:0e1f\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e2a\:0e32\:0e21\:0e32\
+\:0e23\:0e16\:0e25\:0e1a\:0e42\:0e2b\:0e19\:0e14\:0e44\:0e14\:0e49\:0e16\:0e39\
+\:0e01\:0e15\:0e49\:0e2d\:0e07 \:0e2a\:0e32\:0e21\:0e32\:0e23\:0e16\:0e43\
+\:0e0a\:0e49\:0e44\:0e14\:0e49\:0e17\:0e31\:0e49\:0e07\:0e15\:0e31\:0e27\:0e40\
+\:0e25\:0e02\:0e41\:0e25\:0e30\:0e15\:0e31\:0e27\:0e2d\:0e31\:0e01\:0e29\:0e23\
+ \:0e41\:0e15\:0e48\:0e21\:0e35\:0e02\:0e49\:0e2d\:0e41\:0e21\:0e49\:0e40\
+\:0e1e\:0e35\:0e22\:0e07\:0e27\:0e48\:0e32\:0e42\:0e2b\:0e19\:0e14\:0e41\:0e15\
+\:0e48\:0e25\:0e30\:0e15\:0e31\:0e27\:0e08\:0e30\:0e15\:0e49\:0e2d\:0e07\:0e01\
+\:0e33\:0e2b\:0e19\:0e14\:0e04\:0e48\:0e32\:0e44\:0e27\:0e49\:0e0a\:0e48\:0e2d\
+\:0e07\:0e41\:0e23\:0e01\:0e41\:0e25\:0e30\:0e0a\:0e48\:0e2d\:0e07\:0e2a\:0e2d\
+\:0e07\:0e2a\:0e33\:0e2b\:0e23\:0e31\:0e1a\:0e0a\:0e35\:0e49\:0e44\:0e1b\:0e42\
+\:0e2b\:0e19\:0e14\:0e15\:0e31\:0e27\:0e16\:0e31\:0e14\:0e44\:0e1b \:0e41\
+\:0e25\:0e30\:0e40\:0e19\:0e37\:0e48\:0e2d\:0e07\:0e08\:0e32\:0e01\:0e1f\:0e31\
+\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e44\:0e21\:0e48\:0e44\:0e14\:0e49\:0e17\
+\:0e33\:0e07\:0e32\:0e19\:0e41\:0e1a\:0e1a reference \n\:0e08\:0e36\:0e07\
+\:0e44\:0e21\:0e48\:0e44\:0e14\:0e49\:0e40\:0e1b\:0e25\:0e35\:0e48\:0e22\:0e19\
+\:0e04\:0e48\:0e32\:0e25\:0e34\:0e07\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\:0e4c\
+\:0e42\:0e14\:0e22\:0e15\:0e23\:0e07\:0e15\:0e49\:0e2d\:0e07\:0e40\:0e2d\:0e32\
+\:0e04\:0e48\:0e32\:0e17\:0e35\:0e48\:0e44\:0e14\:0e49\:0e08\:0e32\:0e01\:0e1f\
+\:0e31\:0e07\:0e01\:0e4c\:0e0a\:0e31\:0e19\:0e21\:0e32\:0e01\:0e33\:0e2b\:0e19\
+\:0e14\:0e43\:0e2a\:0e48\:0e25\:0e34\:0e07\:0e01\:0e4c\:0e25\:0e34\:0e2a\:0e15\
+\:0e4c\:0e2d\:0e35\:0e01\:0e17\:0e35\nlinkedList = delete[linkedList, 10]\n"
+}], "Text",
+ CellChangeTimes->{{3.744427718803676*^9, 3.7444277211312647`*^9}, {
+   3.744886619440852*^9, 3.744886623572793*^9}, {3.7450589895292764`*^9, 
+   3.745059012224244*^9}, {3.745059186256787*^9, 3.745059187548787*^9}, {
+   3.745059508532366*^9, 3.745059509918332*^9}, {3.7450602460946007`*^9, 
+   3.7450602486656017`*^9}, 3.7450602932083607`*^9, {3.7450609345975676`*^9, 
+   3.745060968883892*^9}},
+ FontFamily->"Times New Roman",
+ FontSize->18]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1520, 781},
+WindowMargins->{{-8, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.0 for Microsoft Windows (64-bit) (September 9, 2014)",
+StyleDefinitions->FrontEnd`FileName[{"Report"}, "StandardReport.nb", 
+  CharacterEncoding -> "WindowsANSI"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 257, 5, 79, "Title"],
+Cell[840, 29, 224, 5, 28, "Subtitle"],
+Cell[CellGroupData[{
+Cell[1089, 38, 203, 5, 58, "Section"],
+Cell[1295, 45, 284, 6, 34, "Text"],
+Cell[CellGroupData[{
+Cell[1604, 55, 204, 5, 29, "Item"],
+Cell[1811, 62, 389, 8, 29, "Item"]
+}, Open  ]],
+Cell[2215, 73, 358, 10, 40, "Input"],
+Cell[2576, 85, 1663, 40, 201, "Input"],
+Cell[4242, 127, 1981, 45, 261, "Input"],
+Cell[6226, 174, 208, 5, 34, "Text"],
+Cell[6437, 181, 195, 4, 28, "ItemNumbered"],
+Cell[CellGroupData[{
+Cell[6657, 189, 341, 8, 40, "Input"],
+Cell[7001, 199, 652, 17, 40, "Output"]
+}, Open  ]],
+Cell[7668, 219, 157, 3, 28, "ItemNumbered"],
+Cell[CellGroupData[{
+Cell[7850, 226, 631, 10, 40, "Input"],
+Cell[8484, 238, 1122, 24, 40, "Output"]
+}, Open  ]],
+Cell[9621, 265, 157, 3, 28, "ItemNumbered"],
+Cell[CellGroupData[{
+Cell[9803, 272, 406, 7, 40, "Input"],
+Cell[10212, 281, 592, 16, 40, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10841, 302, 223, 4, 31, "Subsection"],
+Cell[11067, 308, 9333, 136, 1060, "Text"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20437, 449, 171, 3, 31, "Subsection"],
+Cell[20611, 454, 4097, 57, 305, "Text"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
