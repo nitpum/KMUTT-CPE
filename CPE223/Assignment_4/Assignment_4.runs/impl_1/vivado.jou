@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Wed Nov 21 23:51:51 2018
+# Process ID: 9640
+# Current directory: E:/Drive/Workspace/Vivado/Assignment_4/Assignment_4.runs/impl_1
+# Command line: vivado.exe -log top_module.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source top_module.tcl -notrace
+# Log file: E:/Drive/Workspace/Vivado/Assignment_4/Assignment_4.runs/impl_1/top_module.vdi
+# Journal file: E:/Drive/Workspace/Vivado/Assignment_4/Assignment_4.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source top_module.tcl -notrace

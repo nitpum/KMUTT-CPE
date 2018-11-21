@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Nov 16 11:46:34 2018
+# Process ID: 1864
+# Current directory: E:/Drive/Workspace/Vivado/Lab_11/Lab_11.runs/synth_1
+# Command line: vivado.exe -log ALU.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source ALU.tcl
+# Log file: E:/Drive/Workspace/Vivado/Lab_11/Lab_11.runs/synth_1/ALU.vds
+# Journal file: E:/Drive/Workspace/Vivado/Lab_11/Lab_11.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source ALU.tcl -notrace
