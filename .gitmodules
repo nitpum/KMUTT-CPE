@@ -1,0 +1,3 @@
+[submodule "CPE223/FinalProject"]
+	path = CPE223/FinalProject
+	url = git@github.com:nitpum/KMUTT-CPE223-Verilog-ParkingSystem.git
