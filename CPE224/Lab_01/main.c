@@ -1,40 +1,33 @@
 #include <stdio.h>
 
+#define MAX_BIT 4
+
 void toBinary (int decimal, int binary[]) {
   int i = 0;
   if (decimal < 0) decimal *= -1;
-  for (i = 0; decimal > 1; i++) {
-    binary[i] = decimal % 2;
+  for (i = 0; i < 4; i++) {
+    binary[i] = (decimal > 1)? decimal % 2: decimal;
     decimal /= 2;
   }
-  if (i < 4) binary[i++] = decimal;
-  for (;i < 4;i++) binary[i] = 0;
 }
 
 void invertBinary (int binary[]) {
-  int i = 0;
-  for (i = 0; i < 4; i++) {
-    if (binary[i] == 0) binary[i] = 1;
-    else binary[i] = 0;
-  }
+  int i; for (i = 0; i < MAX_BIT; i++) binary[i] = !binary[i];
 }
 
 void toSigned (int decimal, int binary[], int negative) {
   int i;
-  if (negative) decimal *= -1;
-  toBinary(decimal, binary);
-  if (negative == 1) binary[3] = 1;
-  else binary[3] = 0;
+  toBinary((negative)? decimal * -1: decimal, binary);
+  binary[3] = negative;
 }
 
-void toSingle (int decimal, int binary[], int negative) {
+void oneComple (int decimal, int binary[], int negative) {
   int i;
-  if (negative) decimal *= -1;
-  toBinary(decimal, binary);
-  if (negative == 1) invertBinary(binary);
+  toBinary((negative)? decimal * -1: decimal, binary);
+  if (negative) invertBinary(binary);
 }
 
-void toSecond (int decimal, int binary[], int negative) {
+void twoComple (int decimal, int binary[], int negative) {
   int i, j, plus;
   if (negative) decimal *= -1;
   toBinary(decimal, binary);
@@ -50,8 +43,9 @@ void toSecond (int decimal, int binary[], int negative) {
   }
 }
 
-void printBinary (int binary[], int count) {
+void printBinary (int binary[], int count, int overflow) {
   int i;
+  if (overflow) return printf("Overflow!\n");
   for (i = count-1; i >= 0; i--) {;
     printf("%d", binary[i]);
   }
@@ -65,30 +59,29 @@ int main () {
     {
         char input[8];
         int number, overflow = 0, neg;
-        int binary[4];
+        int binary[MAX_BIT];
         rewind(stdin);
+
         printf("====================\n");
         printf("Enter number: ");
         scanf("%s", &input);
         sscanf(input, "%d", &number);
         neg = input[0] == '-';
-        if (number > 7 || number < -8) overflow = 1;
+        overflow = (number > 7 || number < -8);
+
         printf("Binary: ");
         toBinary(number, binary);
-        if (overflow) printf("Overflow!\n");
-        else printBinary(binary, 4);
+        printBinary(binary, MAX_BIT, overflow);
         printf("Signed-Magnitude: ");
         toSigned(number, binary, neg);
-        if (overflow) printf("Overflow!\n");
-        else printBinary(binary, 4);
+        printBinary(binary, MAX_BIT, overflow);
         printf("1'Complement: ");
-        toSingle(number, binary, neg);
-        if (overflow) printf("Overflow!\n");
-        else printBinary(binary, 4);
+        oneComple(number, binary, neg);
+        printBinary(binary, MAX_BIT, overflow);
         printf("2'Complement: ");
-        toSecond(number, binary, neg);
-        if (overflow) printf("Overflow!\n");
-        else printBinary(binary, 4);
+        twoComple(number, binary, neg);
+        printBinary(binary, MAX_BIT, overflow);
+
         printf("====================\n");
         printf("Again (Y/n) ?\n");
         do
