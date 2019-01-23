@@ -19,33 +19,24 @@ void invertBinary (int binary[]) {
   }
 }
 
-void toSigned (int decimal, int binary[]) {
-  int i, negative = 0;
-  if (decimal < 0) {
-    negative = 1;
-    decimal *= -1;
-  }
+void toSigned (int decimal, int binary[], int negative) {
+  int i;
+  if (negative) decimal *= -1;
   toBinary(decimal, binary);
   if (negative == 1) binary[3] = 1;
   else binary[3] = 0;
 }
 
-void toSingle (int decimal, int binary[]) {
-  int i, negative = 0;
-  if (decimal < 0) {
-    negative = 1;
-    decimal *= -1;
-  }
+void toSingle (int decimal, int binary[], int negative) {
+  int i;
+  if (negative) decimal *= -1;
   toBinary(decimal, binary);
   if (negative == 1) invertBinary(binary);
 }
 
-void toSecond (int decimal, int binary[]) {
-  int i, j, plus, negative = 0;
-  if (decimal < 0) {
-    negative = 1;
-    decimal *= -1;
-  }
+void toSecond (int decimal, int binary[], int negative) {
+  int i, j, plus;
+  if (negative) decimal *= -1;
   toBinary(decimal, binary);
   if (negative == 1) invertBinary(binary);
   for (j = 0, plus = 1; negative == 1 && plus == 1 && j < 4; j++) {
@@ -72,27 +63,30 @@ int main () {
     char again;
     do
     {
-        int number, overflow = 0;
+        char input[8];
+        int number, overflow = 0, neg;
         int binary[4];
         rewind(stdin);
         printf("====================\n");
         printf("Enter number: ");
-        scanf("%d", &number);
+        scanf("%s", &input);
+        sscanf(input, "%d", &number);
+        neg = input[0] == '-';
         if (number > 7 || number < -8) overflow = 1;
         printf("Binary: ");
         toBinary(number, binary);
         if (overflow) printf("Overflow!\n");
         else printBinary(binary, 4);
         printf("Signed-Magnitude: ");
-        toSigned(number, binary);
+        toSigned(number, binary, neg);
         if (overflow) printf("Overflow!\n");
         else printBinary(binary, 4);
         printf("1'Complement: ");
-        toSingle(number, binary);
+        toSingle(number, binary, neg);
         if (overflow) printf("Overflow!\n");
         else printBinary(binary, 4);
         printf("2'Complement: ");
-        toSecond(number, binary);
+        toSecond(number, binary, neg);
         if (overflow) printf("Overflow!\n");
         else printBinary(binary, 4);
         printf("====================\n");
