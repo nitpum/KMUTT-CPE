@@ -15,10 +15,10 @@
 			;		R10	<- stack start index
 			;
 NUMS			DCD		54, 26, 93, 17, 77, 31, 44, 55, 20 ; Array start at 0x100...0x120
-STACK		FILL		72 ;							Reserve Stack memory 0x124...0x168
-LSTACK		FILL		72 ;	0x172...0x1B0
-HSTACK		FILL		72 ; 0x1B4...0x1F8
-			ADR		R0, NUMS ; index pointer
+STACK		FILL		72 				; Reserve Stack memory 0x124...0x168
+LSTACK		FILL		72 				; 0x172...0x1B0
+HSTACK		FILL		72 				; 0x1B4...0x1F8
+			ADR		R0, NUMS 			; index pointer
 			ADR		R1, STACK
 			ADR		R2, LSTACK
 			ADR		R3, HSTACK
@@ -81,10 +81,10 @@ SKIPPARTITION
 			STR		R9, [R2]			; empty top stack
 			SUB		R2, R2, #4		; Remove top stack
 			STR		R9, [R3]			; empty top stack
+			SUB		R3, R3, #4		; Remove top stack
 			
 			CMP		R7, R8			; low < high
 			BGE		SKIPPUSHSTACK		; if not then skip
-			SUB		R3, R3, #4		; Remove top stack
 			;		ADD QSORT
 			;		PUSH STACK
 			;		BUT WE WILL PUSH RIGHT SIDE FIRST AND LEFT SIDE AFTER
@@ -108,7 +108,7 @@ SKIPPARTITION
 			STR		R5, [R3]			; stack = j - 1
 			ADD		R5, R5, #4		; j
 SKIPPUSHSTACK
-			CMP		R2, R10
+			CMP		R2, R10			; if stack is not empty then qsort
 			BGT		QSORT
 			
 			
