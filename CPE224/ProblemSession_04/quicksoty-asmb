@@ -1,0 +1,116 @@
+			;
+			;
+			;		R0	<-	Array Index
+			;		R2	<-	Low Stack Index
+			;		R3	<-	High Stack Index
+			;
+			;		Paritioining Variable
+			;		R4	<- i
+			;		R5	<- j
+			;		FOR COMPARE
+			;		R6	<- pivot
+			;		R7	<- nums[i]
+			;		R8	<- nums[j]
+			;
+			;		R10	<- stack start index
+			;
+NUMS			DCD		54, 26, 93, 17, 77, 31, 44, 55, 20 ; Array start at 0x100...0x120
+STACK		FILL		72 ;							Reserve Stack memory 0x124...0x168
+LSTACK		FILL		72 ;	0x172...0x1B0
+HSTACK		FILL		72 ; 0x1B4...0x1F8
+			ADR		R0, NUMS ; index pointer
+			ADR		R1, STACK
+			ADR		R2, LSTACK
+			ADR		R3, HSTACK
+			;		PUSH Low
+			ADD		R2, R2, #4		; Push Stack Index
+			STR		R0, [R2]			; Load First Array at R0 to R2
+			MOV		R10, R2
+			;		PUSH High
+			ADD		R3, R3, #4		; Push Stack Index
+			ADD		R0, R0, #4 * 8		; Change array index last array
+			STR		R0, [R3]			; Load Second Array at R0 to R3
+			SUB		R0, R0, #4 * 8		; Reset Array index to [0]
+			
+QSORT
+			LDR		R4, [R2]			; i = low
+			ADD		R4, R4, #4		; i = low + 1
+			LDR		R5, [R2]			; j = low
+PARTITION
+			LDR		R7, [R4]			; nums[i]
+			LDR		R8, [R5]			; nums[j]
+			LDR		R6, [R3]			; Change R6 to high for compare
+			CMP		R4, R6			; Compare i < high
+			BGT		SKIPPARTITION		; if not then skip
+			LDR		R6, [R2]			; pivot address
+			LDR		R6, [R6]			; pivot value
+			CMP		R7, R6			; nums[i] <= pivot
+			BGT		SKIPSWAP			; if not then skip
+			;		SWAPING
+			ADD		R5, R5, #4		; j++
+			LDR		R8, [R5]			; nums[j]
+			STR		R7, [R5]			; nums[j] = nums[i]
+			STR		R8, [R4]			; nums[i] = nums[j]
+SKIPSWAP
+			ADD		R4, R4, #4		; i++
+			;		CHECK FOR LOOP AGAIN
+			LDR		R6, [R3]			; Change R6 to high for compare
+			CMP		R4, R6			; Compare i < high
+			BLE		PARTITION			; if not then skip
+SKIPPARTITION
+			;		PREPARE DATA
+			LDR		R7, [R2]			; R7 <- pivot		Save pivot address
+			LDR		R6, [R7]			; x = nums[low]
+			LDR		R8, [R5]			; nums[j]
+			;		SWAP
+			STR		R8, [R7]			; nums[low] = nums[j]
+			STR		R6, [R5]			; nums[j] = x
+			;		ORGRANIZE VARIABLE
+			LDR		R8, [R3]			;
+			;
+			;		CURRENT VARIABLE
+			;
+			;		R5		j
+			;		R6		nums[low]
+			;		R7		low address
+			;		R8		high address
+			;
+			;
+			;		POP STACK
+			MOV		R9, #0
+			STR		R9, [R2]			; empty top stack
+			SUB		R2, R2, #4		; Remove top stack
+			STR		R9, [R3]			; empty top stack
+			
+			CMP		R7, R8			; low < high
+			BGE		SKIPPUSHSTACK		; if not then skip
+			SUB		R3, R3, #4		; Remove top stack
+			;		ADD QSORT
+			;		PUSH STACK
+			;		BUT WE WILL PUSH RIGHT SIDE FIRST AND LEFT SIDE AFTER
+			;		BECAUSE IT STACK AND WE WANT IT DFS ON LEFT FIRST
+			;
+			;		Push [Right] low stack
+			ADD		R5, R5, #4		; j + 1
+			ADD		R2, R2, #4		; PUSH low stack
+			STR		R5, [R2]			; low = j + 1
+			SUB		R5, R5, #4		; j
+			;		Push [Right] high stack
+			ADD		R3, R3, #4		; Push high stack
+			STR		R8, [R3]			; high = high
+			
+			;		Push [Left] low stack
+			ADD		R2, R2, #4		; PUSH low stack
+			STR		R7, [R2]			; stack = low
+			;		Push [Left] high stack
+			SUB		R5, R5, #4		; j - 1
+			ADD		R3, R3, #4		; Push high stack
+			STR		R5, [R3]			; stack = j - 1
+			ADD		R5, R5, #4		; j
+SKIPPUSHSTACK
+			CMP		R2, R10
+			BGT		QSORT
+			
+			
+			
+			
