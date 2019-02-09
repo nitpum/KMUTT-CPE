@@ -1,0 +1,12 @@
+		;		1003, 1029
+		MOV		R0, #0 ; Fn
+		MOV		R1, #0 ; F0
+		MOV		R2, #1 ; F1
+		MOV		R3, #1 ; i
+LOOP
+		ADD		R0, R1, R2
+		MOV		R1, R2
+		MOV		R2, R0
+		ADD		R3, R3, #1
+		CMP		R3, #44 	; CONDITION
+		BLT		LOOP		; i < 44 loop
