@@ -1,5 +1,5 @@
 [submodule "CPE223/FinalProject"]
-	path = CPE223/FinalProject
+	path = CPE223_Digital_Electronics_and_Logic_Design/FinalProject
 	url = git@github.com:nitpum/KMUTT-CPE223-Verilog-ParkingSystem.git
 [submodule "CPE212/FinalProject"]
 	path = CPE212/FinalProject
