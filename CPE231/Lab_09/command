@@ -1,0 +1,57 @@
+# 6.
+create 'student', {NAME=>'personal'}, {NAME=>'skill'}
+
+# 7.
+list
+
+# 8.
+put 'student', 'A1', 'personal:name', 'Phond'
+put 'student', 'A1', 'personal:age', 25
+put 'student', 'A1', 'skill:programming', 'Java'
+put 'student', 'A1', 'skill:speaking', 'Thai'
+
+# 9
+put 'student', 'A2', 'personal:name', 'Poom'
+put 'student', 'A2', 'personal:age', 25
+put 'student', 'A2', 'skill:programming', 'C#'
+put 'student', 'A2', 'skill:speaking', 'Thai'
+
+# 10 
+scan 'student'
+
+# 11
+scan 'student', {COLUMNS=>['personal:age']}
+
+# 12
+scan 'student', {COLUMNS=>['personal:age'], LIMIT=>1}
+
+# 13
+get 'student', 'A1'
+
+# 14
+get 'student', 'A1', {COLUMN => 'skill:programming'}
+
+# 16
+put 'student', 'A1', 'skill:programming', 'Python'
+
+# 17
+alter 'student', {NAME => 'friends'}
+describe 'student'
+
+# 18
+alter 'student', 'delete' => 'friends'
+describe 'student'
+
+# 19
+count 'student'
+
+# 20
+get 'student', 'A1'
+delete 'student', 'A1', 'personal:age'
+
+# 21
+disable 'student'
+scan 'student'
+
+# 22
+is_disabled 'student'
