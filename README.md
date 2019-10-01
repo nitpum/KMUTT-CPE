@@ -7,7 +7,7 @@ This is a my repo for keep my cpe project or assignment. feel free to edit or di
 | CPE100 | Computer Programming for Engineers   | 1/2017   |
 | CPE111 | Programming with Data Structures     | 2/2017   |
 | CPE122 | Basic Circuits and Electronics       | 2/2017   |
-| CPE213 | Algorithm Design                     | 1/2018   |                                                   |                                                                                  |
+| CPE212 | Algorithm Design                     | 1/2018   |                                                   |                                                                                  |
 | CPE213 | Data Models                          | 2/2018   |                                                   |
 | CPE223 | Digital Electronics and Logic Design | 1/2018   | Sanan Srakaew                                     |
 | CPE224 | Computer Architecture                | 2/2018   |                                                   |
