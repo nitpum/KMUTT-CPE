@@ -1,0 +1,29 @@
+Unitary Function 4th
+input
+|xy> -> | x, y (+) f(x)>
+
+
+
+    |  00  01  10  11 |input
+--  |  --  --  --  -- |
+00  |   0   1   0   0 
+01  |   1   0   0   0
+10  |   0   0   0   1
+11  |   0   0   1   0    
+output | 
+
+
+
+Unitary Function 1st (CNOT)
+input 
+|xy> -> | x, y (+) f(x)>
+    |  00  01  10  11 |input
+--  |  --  --  --  -- |
+00  |   1   0   0   0 
+01  |   0   1   0   0
+10  |   0   0   0   1
+11  |   0   0   1   0    
+output | 
+
+
+
