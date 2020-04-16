@@ -7,3 +7,9 @@
 [submodule "CPE213/FinalProject"]
 	path = CPE213/FinalProject
 	url = git@github.com:nitpum/KMUTT-CPE213-FinalProject.git
+[submodule "CPE314/project1"]
+	path = CPE314/project1
+	url = git@github.com:yee2542/CPE314-Project-1.git
+[submodule "CPE361/3d_view"]
+	path = CPE361/3d_view
+	url = https://github.com/nitpum/CPE361-3d-view
